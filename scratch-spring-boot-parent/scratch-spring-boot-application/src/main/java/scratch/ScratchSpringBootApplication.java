@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class Application {
+public class ScratchSpringBootApplication {
 
     /**
      * The standard Spring Boot main method. It is used when the packaged war is executed with {@code java -jar}
      */
     public static void main(String[] args) {
 
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ScratchSpringBootApplication.class, args);
     }
 }

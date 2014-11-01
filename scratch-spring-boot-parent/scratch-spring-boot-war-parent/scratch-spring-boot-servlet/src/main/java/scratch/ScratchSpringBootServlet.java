@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * @author Karl Bennett
  */
 @Configuration
-@Import(Application.class)
+@Import(ScratchSpringBootApplication.class)
 public class ScratchSpringBootServlet extends SpringBootServletInitializer {
 
     /**
