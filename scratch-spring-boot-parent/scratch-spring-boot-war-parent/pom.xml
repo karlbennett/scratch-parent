@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>scratch</groupId>
+        <artifactId>scratch-spring-boot-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>scratch-spring-boot-war-parent</name>
+
+    <artifactId>scratch-spring-boot-war-parent</artifactId>
+
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <url>https://github.com/karlbennett/scratch-parent</url>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <!-- Tell the Maven WAR plugin to ignore the fact that we no longer have a web.xml file. -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>scratch-spring-boot-servlet</module>
+        <module>scratch-spring-boot-servlet-parent</module>
+    </modules>
+</project>
