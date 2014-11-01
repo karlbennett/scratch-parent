@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(Application.class)
-public class Servlet extends SpringBootServletInitializer {
+public class ScratchSpringBootServlet extends SpringBootServletInitializer {
 
     /**
      * This override will start up Spring Boot if this class is instantiated inside of a JEE
@@ -20,6 +20,6 @@ public class Servlet extends SpringBootServletInitializer {
      */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Servlet.class);
+        return application.sources(ScratchSpringBootServlet.class);
     }
 }

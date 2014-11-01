@@ -13,10 +13,10 @@ import static org.junit.Assert.assertEquals;
 import static scratch.TestConstroller.TEST_MESSAGE;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Servlet.class)
+@SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
 @WebAppConfiguration("classpath:")
 @IntegrationTest({"server.port=0", "management.port=0"})
-public class ServletTest {
+public class ScratchSpringBootServletTest {
 
     @Value("${local.server.port}")
     private int port;
