@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>[4.0.7.RELEASE]</version>
+            <version>4.0.7.RELEASE</version>
         </dependency>
 
         <!-- We need javax.servlet API to be able to create a view resolver. -->
