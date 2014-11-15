@@ -1,4 +1,4 @@
-package scratch.spring.rest.controller;
+package scratch.spring.rest.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,16 +7,13 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import scratch.user.Address;
+import scratch.user.Id;
 import scratch.user.User;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import static java.util.Collections.emptyMap;
 import static org.hamcrest.Matchers.containsString;
@@ -25,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class Tests {
+public class Utils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -41,39 +38,10 @@ public class Tests {
         }
     }
 
-    public static Long id(MvcResult result) throws UnsupportedEncodingException {
+    public static void assertBadRequest(ResultActions resultActions, Throwable expected) throws Exception {
 
-        return user(result).getId();
-    }
-
-    public static User user(MvcResult result) throws UnsupportedEncodingException {
-
-        final String json = result.getResponse().getContentAsString();
-
-        return fromJson(json, User.class);
-    }
-
-    private static <T> T fromJson(String json, Class<T> type) {
-
-        try {
-
-            return MAPPER.readValue(json, type);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void assertConstraintViolation(ResultActions resultActions) throws Exception {
-
-        assertBadRequest(resultActions, Matchers.equalTo("DataIntegrityViolationException"),
-                containsString("ConstraintViolationException"));
-    }
-
-    public static void assertValidationError(ResultActions resultActions, String message) throws Exception {
-
-        assertDataError(resultActions, containsString(message));
+        assertBadRequest(resultActions, Matchers.equalTo(expected.getClass().getSimpleName()),
+                Matchers.equalTo(expected.getMessage()));
     }
 
     public static void assertDataError(ResultActions resultActions, Matcher<String> messageMatcher) throws Exception {
@@ -93,10 +61,10 @@ public class Tests {
         assertError(resultActions.andExpect(status().isBadRequest()), errorMatcher, messageMatcher);
     }
 
-    public static void assertNoFound(ResultActions resultActions, Matcher<String> errorMatcher,
-                                     Matcher<String> messageMatcher) throws Exception {
+    public static void assertNoFound(ResultActions resultActions, Throwable throwable) throws Exception {
 
-        assertError(resultActions.andExpect(status().isNotFound()), errorMatcher, messageMatcher);
+        assertError(resultActions.andExpect(status().isNotFound()),
+                Matchers.equalTo(throwable.getClass().getSimpleName()), Matchers.equalTo(throwable.getMessage()));
     }
 
     public static void assertError(ResultActions resultActions, Matcher<String> errorMatcher,
@@ -108,16 +76,16 @@ public class Tests {
                 .andExpect(jsonPath("message").value(messageMatcher));
     }
 
+    public static Matcher<JSONObject> equalTo(Id id) {
+        return new IdMatcher(id);
+    }
+
     public static Matcher<JSONObject> equalTo(User user) {
         return new UserMatcher(user);
     }
 
     public static Matcher<JSONObject> equalTo(Address address) {
         return new AddressMatcher(address);
-    }
-
-    public static Matcher<JSONObject> hasKeys(Set<String> keys) {
-        return new KeyMatcher(keys);
     }
 
     private static boolean isNotEqual(final Object expected, JSONObject item, String key) {
@@ -142,19 +110,51 @@ public class Tests {
         return true;
     }
 
-    private static class UserMatcher extends TypeSafeMatcher<JSONObject> {
+    private static class IdMatcher extends TypeSafeMatcher<JSONObject> {
+
+        private final Id id;
+
+        public IdMatcher(Id id) {
+            this.id = id;
+        }
+
+        @Override
+        public boolean matchesSafely(JSONObject jsonObject) {
+
+            if (isNotEqual(id.getId(), jsonObject, "id")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendValue(userMap());
+        }
+
+        private Map<String, Object> userMap() {
+
+            final Map<String, Object> map = new HashMap<>();
+            map.put("id", id.getId());
+
+            return map;
+        }
+    }
+
+    private static class UserMatcher extends IdMatcher {
 
         private final User user;
 
         public UserMatcher(User user) {
+            super(user);
             this.user = user;
         }
 
         @Override
         public boolean matchesSafely(JSONObject jsonObject) {
 
-            // If the expected ID is null then this must be matching  against a create so the ID cannot be compared.
-            if (null != user.getId() && isNotEqual(user.getId(), jsonObject, "id")) {
+            if (!super.matchesSafely(jsonObject)) {
                 return false;
             }
 
@@ -266,26 +266,6 @@ public class Tests {
             map.put("postcode", address.getPostcode());
 
             return map;
-        }
-    }
-
-    private static class KeyMatcher extends TypeSafeMatcher<JSONObject> {
-
-        private final Set<String> keys;
-
-        private KeyMatcher(Set<String> keys) {
-            this.keys = keys;
-        }
-
-        @Override
-        public boolean matchesSafely(JSONObject jsonObject) {
-
-            return keys.equals(jsonObject.keySet());
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendValue(keys);
         }
     }
 }

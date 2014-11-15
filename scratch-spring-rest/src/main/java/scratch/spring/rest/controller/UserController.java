@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import scratch.spring.rest.data.UserRepository;
-import scratch.user.Address;
 import scratch.user.Id;
 import scratch.user.User;
 import scratch.user.Users;
@@ -16,7 +14,6 @@ import scratch.user.Users;
 import javax.validation.Valid;
 import java.util.concurrent.Callable;
 
-import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -28,92 +25,60 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
- * A controller that maps user RESTful requests.
+ * A controller that maps the {@link Users} interface into RESTful requests.
  *
  * @author Karl Bennett
  */
 @RestController
 @RequestMapping("/rest/users")
-public class UserController implements Users {
+public class UserController {
 
     @Autowired
-    private UserRepository repository;
+    private Users users;
 
-    /**
-     * Persist a new user using the user object that has been deserialised from the {@code JSON} in the body of the
-     * {@code POST} request.
-     *
-     * This operation will fail if a user exists with the emil supplied in the new user. Also if an ID is supplied it
-     * will be ignored.
-     *
-     * @param user the user to persist.
-     * @return the newly persisted user.
-     * @throws org.springframework.dao.DataIntegrityViolationException
-     *          if the deserialised user contains an unique data that has already been persisted.
-     */
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
-    public Callable<Id> asyncCreate(@Valid @RequestBody final User user) {
+    public Callable<Id> create(@Valid @RequestBody final User user) {
 
         return new Callable<Id>() {
 
             @Override
             public Id call() throws Exception {
 
-                return create(user);
+                return users.create(user);
             }
         };
     }
 
-    /**
-     * Retrieve the user with the supplied ID.
-     *
-     * @param id the is of the user to retrieve.
-     * @return the requested user.
-     * @throws IllegalStateException if no user exists with the supplied id.
-     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Callable<User> asyncRetrieve(@PathVariable final Long id) {
+    public Callable<User> retrieve(@PathVariable final Long id) {
 
         return new Callable<User>() {
 
             @Override
             public User call() throws Exception {
 
-                return retrieve(id);
+                return users.retrieve(id);
             }
         };
     }
 
-    /**
-     * Retrieve all the persisted user.
-     *
-     * @return all the users that have been persisted.
-     */
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
-    public Callable<Iterable<User>> asyncRetrieve() {
+    public Callable<Iterable<User>> retrieve() {
 
         return new Callable<Iterable<User>>() {
 
             @Override
             public Iterable<User> call() throws Exception {
 
-                return retrieve();
+                return users.retrieve();
             }
         };
     }
 
-    /**
-     * Updated the user that has been deserialised from the {@code JSON} in the body of the {@code PUT} request.
-     *
-     * @param id   the ID of the user to update.
-     * @param user the deserialised user minus the ID.
-     * @return the updated user.
-     * @throws IllegalStateException if no user exists with the supplied id.
-     */
     @RequestMapping(value = "/{id}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
-    public Callable<String> asyncUpdate(@PathVariable Long id, @Valid @RequestBody final User user) {
+    public Callable<String> update(@PathVariable Long id, @Valid @RequestBody final User user) {
 
         user.setId(id);
 
@@ -122,30 +87,23 @@ public class UserController implements Users {
             @Override
             public String call() throws Exception {
 
-                update(user);
+                users.update(user);
 
                 return "";
             }
         };
     }
 
-    /**
-     * Delete the user with the supplied ID.
-     *
-     * @param id the ID of the user to delete.
-     * @return the delete user.
-     * @throws IllegalStateException if no user exists with the supplied id.
-     */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
-    public Callable<String> asyncDelete(@PathVariable final Long id) {
+    public Callable<String> delete(@PathVariable final Long id) {
 
         return new Callable<String>() {
 
             @Override
             public String call() throws Exception {
 
-                delete(id);
+                users.delete(id);
 
                 return "";
             }
@@ -154,75 +112,18 @@ public class UserController implements Users {
 
     @RequestMapping(method = DELETE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
-    public Callable<String> asyncDeleteAll() {
+    public Callable<String> deleteAll() {
 
         return new Callable<String>() {
 
             @Override
             public String call() throws Exception {
 
-                deleteAll();
+                users.deleteAll();
 
                 return "";
             }
         };
-    }
-
-    @Override
-    public Id create(User user) {
-
-        // Null out the ID's to make sure that an attempt is made at a create not an update.
-        user.setId(null);
-
-        final Address address = user.getAddress();
-        if (null != address) {
-            address.setId(null);
-        }
-
-        return new Id(repository.save(user));
-    }
-
-    @Override
-    public User retrieve(Long id) {
-
-        checkExists(id);
-
-        return repository.findOne(id);
-    }
-
-    @Override
-    public Iterable<User> retrieve() {
-
-        return repository.findAll();
-    }
-
-    @Override
-    public void update(User user) {
-
-        checkExists(user.getId());
-
-        repository.save(user);
-    }
-
-    @Override
-    public void delete(Long id) {
-
-        checkExists(id);
-
-        repository.delete(id);
-    }
-
-    @Override
-    public void deleteAll() {
-
-        repository.deleteAll();
-    }
-
-    private void checkExists(Long id) {
-
-        if (!repository.exists(id)) {
-            throw new IllegalStateException(format("A user with the ID (%d) could not be found.", id));
-        }
     }
 
     public static class ErrorResponse {
@@ -252,7 +153,7 @@ public class UserController implements Users {
 
     @ExceptionHandler
     @ResponseStatus(NOT_FOUND)
-    public ErrorResponse handleException(IllegalStateException e) {
+    public ErrorResponse handleException(IllegalArgumentException e) {
 
         return new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
     }

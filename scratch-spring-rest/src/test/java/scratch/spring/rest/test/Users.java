@@ -1,19 +1,15 @@
-package scratch.spring.rest.data;
+package scratch.spring.rest.test;
 
 import scratch.user.User;
 
-import static scratch.spring.rest.data.Addresses.address;
-import static scratch.spring.rest.data.Addresses.addressOne;
-import static scratch.spring.rest.data.Addresses.addressThree;
-import static scratch.spring.rest.data.Addresses.addressTwo;
+import static scratch.spring.rest.test.Addresses.address;
+import static scratch.spring.rest.test.Addresses.addressOne;
+import static scratch.spring.rest.test.Addresses.addressThree;
+import static scratch.spring.rest.test.Addresses.addressTwo;
 
-/**
- * Data for user persistence tests.
- *
- * @author Karl Bennett
- */
 public class Users {
 
+    public static final Long ID = 1L;
     public static final String EMAIL = "test@email.com";
     public static final String FIRST_NAME = "Test";
     public static final String LAST_NAME = "User";
@@ -36,7 +32,7 @@ public class Users {
 
     public static User user() {
 
-        return new User(EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, address());
+        return new User(ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, address());
     }
 
     public static User userOne() {

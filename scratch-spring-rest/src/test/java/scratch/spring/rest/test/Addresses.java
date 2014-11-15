@@ -1,12 +1,7 @@
-package scratch.spring.rest.data;
+package scratch.spring.rest.test;
 
 import scratch.user.Address;
 
-/**
- * Data for user persistence tests.
- *
- * @author Karl Bennett
- */
 public class Addresses {
 
     public static final Integer NUMBER = 11;
