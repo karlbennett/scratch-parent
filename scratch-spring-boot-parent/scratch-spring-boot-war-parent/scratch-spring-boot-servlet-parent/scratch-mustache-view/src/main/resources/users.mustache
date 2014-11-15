@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Users</title>
+</head>
+<body>
+<table class="users">
+    {{#users}}
+        <tr class="user">
+            <td class="email"><a href="users/{{id}}">{{email}}</a></td>
+            <td class="firstName">{{firstName}}</td>
+            <td class="lastName">{{lastName}}</td>
+        </tr>
+    {{/users}}
+</table>
+</body>
+</html>

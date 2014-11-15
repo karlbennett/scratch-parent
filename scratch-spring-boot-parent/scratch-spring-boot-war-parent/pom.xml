@@ -17,8 +17,6 @@
 
     <packaging>pom</packaging>
 
-    <url>https://github.com/karlbennett/scratch-parent</url>
-
     <build>
         <plugins>
             <plugin>

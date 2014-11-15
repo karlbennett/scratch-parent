@@ -17,8 +17,6 @@
 
     <packaging>pom</packaging>
 
-    <url>https://github.com/karlbennett/scratch-parent</url>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>

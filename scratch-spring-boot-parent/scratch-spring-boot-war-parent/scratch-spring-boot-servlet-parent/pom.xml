@@ -18,8 +18,6 @@
 
     <packaging>pom</packaging>
 
-    <url>https://github.com/karlbennett/scratch-parent</url>
-
     <dependencies>
         <dependency>
             <groupId>scratch</groupId>
@@ -27,4 +25,9 @@
             <version>[1.0-SNAPSHOT]</version>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>scratch-spring-rest</module>
+        <module>scratch-mustache-view</module>
+    </modules>
 </project>

@@ -1,0 +1,15 @@
+{
+    "id": 1,
+    "email": "test@email.com",
+    "firstName": "Test",
+    "lastName": "User",
+    "phoneNumber": "5551234",
+    "address": {
+        "id": 2,
+        "number": 3,
+        "street": "That Road",
+        "suburb": "This Place",
+        "city": "Your City",
+        "postcode": "ABC123"
+    }
+}
