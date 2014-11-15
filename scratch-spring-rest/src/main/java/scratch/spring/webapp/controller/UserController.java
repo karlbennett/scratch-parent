@@ -13,7 +13,6 @@ import scratch.user.Id;
 import scratch.user.User;
 import scratch.user.Users;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.concurrent.Callable;
 
@@ -71,8 +70,7 @@ public class UserController implements Users {
      *
      * @param id the is of the user to retrieve.
      * @return the requested user.
-     * @throws javax.persistence.EntityNotFoundException
-     *          if no user exists with the supplied id.
+     * @throws IllegalStateException if no user exists with the supplied id.
      */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
     public Callable<User> asyncRetrieve(@PathVariable final Long id) {
@@ -111,8 +109,7 @@ public class UserController implements Users {
      * @param id   the ID of the user to update.
      * @param user the deserialised user minus the ID.
      * @return the updated user.
-     * @throws javax.persistence.EntityNotFoundException
-     *          if no user exists with the supplied id.
+     * @throws IllegalStateException if no user exists with the supplied id.
      */
     @RequestMapping(value = "/{id}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
@@ -137,8 +134,7 @@ public class UserController implements Users {
      *
      * @param id the ID of the user to delete.
      * @return the delete user.
-     * @throws javax.persistence.EntityNotFoundException
-     *          if no user exists with the supplied id.
+     * @throws IllegalStateException if no user exists with the supplied id.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
@@ -225,7 +221,7 @@ public class UserController implements Users {
     private void checkExists(Long id) {
 
         if (!repository.exists(id)) {
-            throw new EntityNotFoundException(format("A user with the ID (%d) could not be found.", id));
+            throw new IllegalStateException(format("A user with the ID (%d) could not be found.", id));
         }
     }
 
@@ -256,7 +252,7 @@ public class UserController implements Users {
 
     @ExceptionHandler
     @ResponseStatus(NOT_FOUND)
-    public ErrorResponse handleException(EntityNotFoundException e) {
+    public ErrorResponse handleException(IllegalStateException e) {
 
         return new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
     }

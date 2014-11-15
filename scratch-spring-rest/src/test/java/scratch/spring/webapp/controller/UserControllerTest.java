@@ -263,7 +263,7 @@ public class UserControllerTest {
     @Test
     public void I_cannot_retrieve_a_user_with_an_invalid_id() throws Exception {
 
-        assertNoFound(mockMvc.perform(async(get("/users/-1"))), equalTo("EntityNotFoundException"),
+        assertNoFound(mockMvc.perform(async(get("/users/-1"))), equalTo("IllegalStateException"),
                 equalTo("A user with the ID (-1) could not be found."));
 
         assertBadRequest(mockMvc.perform(get("/users/invalid")), equalTo("TypeMismatchException"),
@@ -361,7 +361,7 @@ public class UserControllerTest {
 
         assertNoFound(
                 mockMvc.perform(async(put(format("/users/%d", persistedUser.getId())).content(json(persistedUser)))),
-                equalTo("EntityNotFoundException"), equalTo("A user with the ID (-1) could not be found."));
+                equalTo("IllegalStateException"), equalTo("A user with the ID (-1) could not be found."));
 
         assertBadRequest(
                 mockMvc.perform(put("/users/invalid").contentType(APPLICATION_JSON).content(json(persistedUser))),
@@ -434,7 +434,7 @@ public class UserControllerTest {
     @Test
     public void I_cannot_delete_a_user_with_an_invalid_id() throws Exception {
 
-        assertNoFound(mockMvc.perform(async(delete("/users/-1"))), equalTo("EntityNotFoundException"),
+        assertNoFound(mockMvc.perform(async(delete("/users/-1"))), equalTo("IllegalStateException"),
                 equalTo("A user with the ID (-1) could not be found."));
 
         assertBadRequest(mockMvc.perform(delete("/users/invalid")), equalTo("TypeMismatchException"),
