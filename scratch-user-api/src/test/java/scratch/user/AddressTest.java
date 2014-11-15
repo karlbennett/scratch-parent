@@ -111,7 +111,8 @@ public class AddressTest {
 
         assertEquals("the address should produce the correct toString value.",
                 format(
-                        "Address {id = %d, number = %d, street = '%s', suburb = '%s', city = '%s', postcode = '%s'}",
+                        "Address {id = %d,\nnumber = %d,\nstreet = '%s',\nsuburb = '%s',\ncity = '%s',\n" +
+                                "postcode = '%s'\n}",
                         address.getId(),
                         address.getNumber(),
                         address.getStreet(),

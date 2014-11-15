@@ -104,7 +104,8 @@ public class UserTest {
 
         assertEquals("the user should produce the correct toString value.",
                 format(
-                /**/"User {id = %d, email = '%s', firstName = '%s', lastName = '%s', phoneNumber = '%s', address = %s}",
+                /**/"User {id = %d,\nemail = '%s',\nfirstName = '%s',\nlastName = '%s',\nphoneNumber = '%s',\n" +
+                        "address = %s\n}",
                         user.getId(),
                         user.getEmail(),
                         user.getFirstName(),

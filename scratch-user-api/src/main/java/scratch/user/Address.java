@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
+import static java.lang.String.format;
+
 /**
  * A simple address class that is an aggregate of the {@link User} class.
  *
@@ -137,13 +139,14 @@ public class Address extends Id implements Serializable {
 
     @Override
     public String toString() {
-        return "Address {" +
-              /**/"id = " + getId() +
-                ", number = " + number +
-                ", street = '" + street + '\'' +
-                ", suburb = '" + suburb + '\'' +
-                ", city = '" + city + '\'' +
-                ", postcode = '" + postcode + '\'' +
-                '}';
+
+        return format("Address {" +
+                "id = %d,\n" +
+                "number = %d,\n" +
+                "street = '%s',\n" +
+                "suburb = '%s',\n" +
+                "city = '%s',\n" +
+                "postcode = '%s'\n" +
+                "}", getId(), number, street, suburb, city, postcode);
     }
 }

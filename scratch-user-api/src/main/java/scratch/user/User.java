@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import static java.lang.String.format;
+
 /**
  * A simple user class that contains an email, first name, last name, phone number, and address. The email has been
  * annotated to indicate it should be unique. Some others have been annotated to be not null.
@@ -154,13 +156,13 @@ public class User extends Id implements Serializable {
     @Override
     public String toString() {
 
-        return "User {" +
-              /**/"id = " + getId() +
-                ", email = '" + email + '\'' +
-                ", firstName = '" + firstName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", phoneNumber = '" + phoneNumber + '\'' +
-                ", address = " + address +
-                '}';
+        return format("User {" +
+             /**/"id = %d,\n" +
+                "email = '%s',\n" +
+                "firstName = '%s',\n" +
+                "lastName = '%s',\n" +
+                "phoneNumber = '%s',\n" +
+                "address = %s\n" +
+                "}", getId(), email, firstName, lastName, phoneNumber, address);
     }
 }
