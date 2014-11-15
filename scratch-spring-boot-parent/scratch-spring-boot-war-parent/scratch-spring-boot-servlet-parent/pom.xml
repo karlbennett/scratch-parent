@@ -27,7 +27,6 @@
     </dependencies>
 
     <modules>
-        <module>scratch-spring-rest</module>
         <module>scratch-mustache-view</module>
     </modules>
 </project>

@@ -10,7 +10,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import scratch.spring.webapp.ScratchSpringBootRestServlet;
+import scratch.ScratchSpringBootServlet;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ScratchSpringBootRestServlet.class)
+@SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
 @WebAppConfiguration("classpath:")
 public class ScratchControllerTest {
 

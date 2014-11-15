@@ -33,7 +33,7 @@ public class ScratchController {
     @ResponseBody
     public Map<Object, Object> handle(HttpServletRequest request, HttpServletResponse response) {
 
-        Map<Object, Object> body = new HashMap<Object, Object>();
+        Map<Object, Object> body = new HashMap<>();
 
         body.put("scratched", true);
 

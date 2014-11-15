@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>scratch</groupId>
-        <artifactId>scratch-spring-boot-servlet-parent</artifactId>
+        <artifactId>scratch-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -20,6 +20,11 @@
 
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <spring.boot.version>[1.1.8.RELEASE]</spring.boot.version>
+        <spring.version>[4.0.7.RELEASE]</spring.version>
+    </properties>
+
     <dependencies>
 
         <!-- This REST web application implements this API so that it can then be used by other standard scratch -->
@@ -30,10 +35,54 @@
             <version>[1.0-SNAPSHOT]</version>
         </dependency>
 
-        <!-- Enable Spring Data within Spring Boot. -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.7.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!-- Using Spring Boot to simplify the setup of the persistence tests. -->
+        <dependency>
+            <groupId>scratch</groupId>
+            <artifactId>scratch-spring-boot-servlet</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- The HSQL in memory database where all the data is persisted.-->

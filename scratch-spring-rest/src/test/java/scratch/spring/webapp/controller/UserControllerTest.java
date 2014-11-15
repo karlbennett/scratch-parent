@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import scratch.spring.webapp.ScratchSpringBootRestServlet;
+import scratch.ScratchSpringBootServlet;
 import scratch.spring.webapp.data.UserSteps;
 import scratch.user.Address;
 import scratch.user.User;
@@ -55,7 +55,7 @@ import static scratch.spring.webapp.data.Users.userThree;
 import static scratch.spring.webapp.data.Users.userTwo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ScratchSpringBootRestServlet.class)
+@SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
 @WebAppConfiguration("classpath:")
 public class UserControllerTest {
 
