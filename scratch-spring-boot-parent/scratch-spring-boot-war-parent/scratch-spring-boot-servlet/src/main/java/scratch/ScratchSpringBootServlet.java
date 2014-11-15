@@ -1,5 +1,6 @@
 package scratch;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
@@ -21,5 +22,13 @@ public class ScratchSpringBootServlet extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(ScratchSpringBootServlet.class);
+    }
+
+    /**
+     * The standard Spring Boot main method. It is used when the packaged war is executed with {@code java -jar}
+     */
+    public static void main(String[] args) {
+
+        SpringApplication.run(ScratchSpringBootApplication.class, args);
     }
 }
