@@ -105,6 +105,7 @@
         <module>scratch-spring-boot-parent</module>
         <module>scratch-spring-rest</module>
         <module>scratch-jersey-client</module>
+        <module>scratch-mustache-view</module>
         <module>scratch-cucumber-rest</module>
     </modules>
 </project>

@@ -15,7 +15,7 @@ import static java.lang.String.format;
 @Component
 public class BaseUrl {
 
-    @Value("${base.url:http://localhost:%d/mustache}")
+    @Value("${base.url:http://localhost:%d}")
     private String baseUrl;
 
     private int port;

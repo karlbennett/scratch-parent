@@ -1,4 +1,4 @@
-scratch-spring-mustache
+scratch-mustache-view
 ==============
 
 A simple Spring Boot webapp that uses [Mustache](https://github.com/spullara/mustache.java) as it's templating language.

@@ -9,6 +9,7 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserPage;
@@ -24,7 +25,7 @@ import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ScratchSpringMustacheServlet.class)
+@SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
 @WebAppConfiguration("classpath:")
 @IntegrationTest({"server.port=0", "management.port=0"})
 public class ITScratchSpringMustache {
