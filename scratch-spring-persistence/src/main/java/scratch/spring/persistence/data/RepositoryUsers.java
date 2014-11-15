@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
 import static java.lang.String.format;
 
 /**
- * A controller that maps user RESTful requests.
+ * An implementation of {@link Users} that delegates to a Spring Data repository.
  *
  * @author Karl Bennett
  */
