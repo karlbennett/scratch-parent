@@ -14,12 +14,13 @@ import scratch.user.User;
 import scratch.user.Users;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -254,17 +255,15 @@ public class UserController implements Users {
     }
 
     @ExceptionHandler
-    public ErrorResponse handleException(EntityNotFoundException e, HttpServletResponse response) {
-
-        response.setStatus(404);
+    @ResponseStatus(NOT_FOUND)
+    public ErrorResponse handleException(EntityNotFoundException e) {
 
         return new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
     }
 
     @ExceptionHandler
-    public ErrorResponse handleException(Exception e, HttpServletResponse response) {
-
-        response.setStatus(400);
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorResponse handleException(Exception e) {
 
         return new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
     }
