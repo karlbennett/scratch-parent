@@ -63,6 +63,11 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <includes>
+                                <include>scratch.*</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
