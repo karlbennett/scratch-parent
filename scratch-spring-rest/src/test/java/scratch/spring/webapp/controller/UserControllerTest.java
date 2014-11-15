@@ -59,6 +59,11 @@ import static scratch.spring.webapp.data.Users.userTwo;
 @WebAppConfiguration("classpath:")
 public class UserControllerTest {
 
+    private static final String REST_USERS = "/rest/users";
+    private static final String REST_USERS_DIGIT = REST_USERS + "/%d";
+    private static final String REST_USERS_NEGATIVE_ONE = REST_USERS + "/-1";
+    private static final String REST_USERS_INVALID = REST_USERS + "/invalid";
+
     @Autowired
     private UserSteps steps;
 
@@ -84,7 +89,7 @@ public class UserControllerTest {
 
         final User user = userOne();
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -95,7 +100,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setId(99999999999L);
 
-        final MvcResult result = mockMvc.perform(async(post("/users").content(json(user))))
+        final MvcResult result = mockMvc.perform(async(post(REST_USERS).content(json(user))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").value(not(equalTo(user.getId()))))
                 .andReturn();
@@ -106,13 +111,13 @@ public class UserControllerTest {
     @Test
     public void I_cannot_create_a_user_with_no_data() throws Exception {
 
-        assertMissingBody(mockMvc.perform(post("/users").contentType(APPLICATION_JSON)));
+        assertMissingBody(mockMvc.perform(post(REST_USERS).contentType(APPLICATION_JSON)));
     }
 
     @Test
     public void I_cannot_create_an_existing_user() throws Exception {
 
-        assertConstraintViolation(mockMvc.perform(async(post("/users").content(json(persistedUser)))));
+        assertConstraintViolation(mockMvc.perform(async(post(REST_USERS).content(json(persistedUser)))));
     }
 
     @Test
@@ -122,11 +127,11 @@ public class UserControllerTest {
 
         final String json = json(user);
 
-        user(mockMvc.perform(async(post("/users").content(json)))
+        user(mockMvc.perform(async(post(REST_USERS).content(json)))
                 .andExpect(status().isCreated())
                 .andReturn());
 
-        assertConstraintViolation(mockMvc.perform(async(post("/users").content(json))));
+        assertConstraintViolation(mockMvc.perform(async(post(REST_USERS).content(json))));
     }
 
     @Test
@@ -135,7 +140,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setEmail(persistedUser.getEmail());
 
-        assertConstraintViolation(mockMvc.perform(async(post("/users").content(json(user)))));
+        assertConstraintViolation(mockMvc.perform(async(post(REST_USERS).content(json(user)))));
     }
 
     @Test
@@ -144,7 +149,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setFirstName(persistedUser.getFirstName());
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -155,7 +160,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setLastName(persistedUser.getLastName());
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -166,7 +171,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setPhoneNumber(persistedUser.getPhoneNumber());
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -180,7 +185,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setAddress(address);
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -191,7 +196,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setEmail(null);
 
-        assertValidationError(mockMvc.perform(post("/users")
+        assertValidationError(mockMvc.perform(post(REST_USERS)
                 .accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON)
                 .content(json(user))),
@@ -205,7 +210,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setFirstName(null);
 
-        assertValidationError(mockMvc.perform(post("/users")
+        assertValidationError(mockMvc.perform(post(REST_USERS)
                 .accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON)
                 .content(json(user))),
@@ -219,7 +224,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setLastName(null);
 
-        assertValidationError(mockMvc.perform(post("/users")
+        assertValidationError(mockMvc.perform(post(REST_USERS)
                 .accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON)
                 .content(json(user))),
@@ -233,7 +238,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setPhoneNumber(null);
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -244,7 +249,7 @@ public class UserControllerTest {
         final User user = userOne();
         user.setAddress(null);
 
-        final MvcResult result = assertUserCreated(post("/users"), user);
+        final MvcResult result = assertUserCreated(post(REST_USERS), user);
 
         steps.then_the_user_should_be_created(id(result), user);
     }
@@ -252,7 +257,7 @@ public class UserControllerTest {
     @Test
     public void I_can_retrieve_a_user() throws Exception {
 
-        mockMvc.perform(async(get(format("/users/%d", persistedUser.getId()))))
+        mockMvc.perform(async(get(format(REST_USERS_DIGIT, persistedUser.getId()))))
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").value(equalTo(persistedUser)))
                 .andExpect(jsonPath("$.address").value(equalTo(persistedUser.getAddress())))
@@ -263,10 +268,10 @@ public class UserControllerTest {
     @Test
     public void I_cannot_retrieve_a_user_with_an_invalid_id() throws Exception {
 
-        assertNoFound(mockMvc.perform(async(get("/users/-1"))), equalTo("IllegalStateException"),
+        assertNoFound(mockMvc.perform(async(get(REST_USERS + "/-1"))), equalTo("IllegalStateException"),
                 equalTo("A user with the ID (-1) could not be found."));
 
-        assertBadRequest(mockMvc.perform(get("/users/invalid")), equalTo("TypeMismatchException"),
+        assertBadRequest(mockMvc.perform(get(REST_USERS_INVALID)), equalTo("TypeMismatchException"),
                 containsString("NumberFormatException"));
     }
 
@@ -277,7 +282,7 @@ public class UserControllerTest {
         final User userTwo = steps.given_a_user_has_been_persisted(userTwo());
         final User userThree = steps.given_a_user_has_been_persisted(userThree());
 
-        mockMvc.perform(async(get("/users")))
+        mockMvc.perform(async(get(REST_USERS)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").value(hasSize(4)))
@@ -298,7 +303,7 @@ public class UserControllerTest {
         persistedUser.setFirstName(FIRST_NAME_ONE);
         persistedUser.setLastName(LAST_NAME_ONE);
 
-        assertUserUpdated(put(format("/users/%d", persistedUser.getId())), persistedUser);
+        assertUserUpdated(put(format(REST_USERS_DIGIT, persistedUser.getId())), persistedUser);
 
         steps.then_the_user_should_be_updated(persistedUser);
     }
@@ -307,7 +312,7 @@ public class UserControllerTest {
     public void I_cannot_update_a_user_with_no_data() throws Exception {
 
         assertMissingBody(
-                mockMvc.perform(put(format("/users/%d", persistedUser.getId())).contentType(APPLICATION_JSON)));
+                mockMvc.perform(put(format(REST_USERS_DIGIT, persistedUser.getId())).contentType(APPLICATION_JSON)));
     }
 
     @Test
@@ -319,7 +324,7 @@ public class UserControllerTest {
         user.setLastName(persistedUser.getLastName());
 
         assertConstraintViolation(mockMvc.perform(async(
-                put(format("/users/%d", user.getId())).content(json(persistedUser)))));
+                put(format(REST_USERS_DIGIT, user.getId())).content(json(persistedUser)))));
     }
 
     @Test
@@ -329,7 +334,7 @@ public class UserControllerTest {
         user.setEmail(persistedUser.getEmail());
 
         assertConstraintViolation(mockMvc.perform(async(
-                put(format("/users/%d", user.getId())).content(json(persistedUser)))));
+                put(format(REST_USERS_DIGIT, user.getId())).content(json(persistedUser)))));
     }
 
     @Test
@@ -338,7 +343,7 @@ public class UserControllerTest {
         final User user = steps.given_a_user_has_been_persisted(userOne());
         user.setFirstName(persistedUser.getFirstName());
 
-        assertUserUpdated(put(format("/users/%d", user.getId())), user);
+        assertUserUpdated(put(format(REST_USERS_DIGIT, user.getId())), user);
 
         steps.then_the_user_should_be_updated(persistedUser);
     }
@@ -349,7 +354,7 @@ public class UserControllerTest {
         final User user = steps.given_a_user_has_been_persisted(userOne());
         user.setLastName(persistedUser.getLastName());
 
-        assertUserUpdated(put(format("/users/%d", user.getId())), user);
+        assertUserUpdated(put(format(REST_USERS_DIGIT, user.getId())), user);
 
         steps.then_the_user_should_be_updated(persistedUser);
     }
@@ -360,11 +365,11 @@ public class UserControllerTest {
         persistedUser.setId(-1L);
 
         assertNoFound(
-                mockMvc.perform(async(put(format("/users/%d", persistedUser.getId())).content(json(persistedUser)))),
+                mockMvc.perform(async(put(format(REST_USERS_DIGIT, persistedUser.getId())).content(json(persistedUser)))),
                 equalTo("IllegalStateException"), equalTo("A user with the ID (-1) could not be found."));
 
         assertBadRequest(
-                mockMvc.perform(put("/users/invalid").contentType(APPLICATION_JSON).content(json(persistedUser))),
+                mockMvc.perform(put(REST_USERS_INVALID).contentType(APPLICATION_JSON).content(json(persistedUser))),
                 equalTo("TypeMismatchException"), containsString("NumberFormatException"));
     }
 
@@ -373,7 +378,7 @@ public class UserControllerTest {
 
         persistedUser.setEmail(EMAIL_ONE);
 
-        mockMvc.perform(put("/users").content(json(persistedUser)))
+        mockMvc.perform(put(REST_USERS).content(json(persistedUser)))
                 .andExpect(status().isMethodNotAllowed())
                 .andExpect(content().string(isEmptyString()));
     }
@@ -384,7 +389,7 @@ public class UserControllerTest {
         persistedUser.setEmail(null);
 
         assertValidationError(
-                mockMvc.perform(put(format("/users/%d", persistedUser.getId()))
+                mockMvc.perform(put(format(REST_USERS_DIGIT, persistedUser.getId()))
                         .accept(APPLICATION_JSON)
                         .contentType(APPLICATION_JSON)
                         .content(json(persistedUser))
@@ -400,7 +405,7 @@ public class UserControllerTest {
 
         assertValidationError(
                 mockMvc.perform(
-                        put(format("/users/%d", persistedUser.getId()))
+                        put(format(REST_USERS_DIGIT, persistedUser.getId()))
                                 .accept(APPLICATION_JSON)
                                 .contentType(APPLICATION_JSON)
                                 .content(json(persistedUser))
@@ -415,7 +420,7 @@ public class UserControllerTest {
         persistedUser.setLastName(null);
 
         assertValidationError(
-                mockMvc.perform(put(format("/users/%d", persistedUser.getId()))
+                mockMvc.perform(put(format(REST_USERS_DIGIT, persistedUser.getId()))
                         .accept(APPLICATION_JSON)
                         .contentType(APPLICATION_JSON)
                         .content(json(persistedUser))),
@@ -426,7 +431,7 @@ public class UserControllerTest {
     @Test
     public void I_can_delete_a_user() throws Exception {
 
-        assertUserNoContent(delete(format("/users/%d", persistedUser.getId())));
+        assertUserNoContent(delete(format(REST_USERS_DIGIT, persistedUser.getId())));
 
         steps.then_the_user_should_no_longer_be_persisted(persistedUser);
     }
@@ -434,10 +439,10 @@ public class UserControllerTest {
     @Test
     public void I_cannot_delete_a_user_with_an_invalid_id() throws Exception {
 
-        assertNoFound(mockMvc.perform(async(delete("/users/-1"))), equalTo("IllegalStateException"),
+        assertNoFound(mockMvc.perform(async(delete(REST_USERS_NEGATIVE_ONE))), equalTo("IllegalStateException"),
                 equalTo("A user with the ID (-1) could not be found."));
 
-        assertBadRequest(mockMvc.perform(delete("/users/invalid")), equalTo("TypeMismatchException"),
+        assertBadRequest(mockMvc.perform(delete(REST_USERS_INVALID)), equalTo("TypeMismatchException"),
                 containsString("NumberFormatException"));
     }
 
@@ -448,7 +453,7 @@ public class UserControllerTest {
         final User userTwo = steps.given_a_user_has_been_persisted(userTwo());
         final User userThree = steps.given_a_user_has_been_persisted(userThree());
 
-        assertUserNoContent(delete("/users"));
+        assertUserNoContent(delete(REST_USERS));
 
         steps.then_the_user_should_no_longer_be_persisted(persistedUser);
         steps.then_the_user_should_no_longer_be_persisted(userOne);

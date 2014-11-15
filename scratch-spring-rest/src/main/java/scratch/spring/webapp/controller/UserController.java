@@ -33,7 +33,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  * @author Karl Bennett
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/rest/users")
 public class UserController implements Users {
 
     @Autowired
