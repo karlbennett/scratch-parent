@@ -29,7 +29,7 @@ public interface Users {
     /**
      * @param user the user to be updated.
      * @throws IllegalArgumentException if the user does not exist.
-     * @throws IllegalStateException if an attempt is made to update the user with invalid data..
+     * @throws IllegalStateException    if an attempt is made to update the user with invalid data..
      */
     void update(User user) throws IllegalArgumentException, IllegalStateException;
 
