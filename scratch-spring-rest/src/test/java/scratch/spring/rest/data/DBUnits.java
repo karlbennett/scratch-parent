@@ -1,4 +1,4 @@
-package scratch.spring.webapp.data;
+package scratch.spring.rest.data;
 
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;

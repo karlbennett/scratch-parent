@@ -1,10 +1,10 @@
-package scratch.spring.webapp.config;
+package scratch.spring.rest.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import scratch.spring.webapp.data.DBUnitUserRepository;
-import scratch.spring.webapp.data.UserSteps;
+import scratch.spring.rest.data.DBUnitUserRepository;
+import scratch.spring.rest.data.UserSteps;
 
 import javax.sql.DataSource;
 

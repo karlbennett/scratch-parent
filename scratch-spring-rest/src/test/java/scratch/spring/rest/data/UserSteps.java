@@ -1,4 +1,4 @@
-package scratch.spring.webapp.data;
+package scratch.spring.rest.data;
 
 import scratch.user.Address;
 import scratch.user.User;
@@ -6,7 +6,7 @@ import scratch.user.User;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static scratch.spring.webapp.data.Users.user;
+import static scratch.spring.rest.data.Users.user;
 
 public class UserSteps {
 

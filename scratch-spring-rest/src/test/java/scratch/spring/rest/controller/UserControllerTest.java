@@ -1,4 +1,4 @@
-package scratch.spring.webapp.controller;
+package scratch.spring.rest.controller;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import scratch.ScratchSpringBootServlet;
-import scratch.spring.webapp.data.UserSteps;
+import scratch.spring.rest.data.UserSteps;
 import scratch.user.Address;
 import scratch.user.User;
 
@@ -37,22 +37,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static scratch.spring.webapp.controller.Tests.assertBadRequest;
-import static scratch.spring.webapp.controller.Tests.assertConstraintViolation;
-import static scratch.spring.webapp.controller.Tests.assertMissingBody;
-import static scratch.spring.webapp.controller.Tests.assertNoFound;
-import static scratch.spring.webapp.controller.Tests.assertValidationError;
-import static scratch.spring.webapp.controller.Tests.equalTo;
-import static scratch.spring.webapp.controller.Tests.hasKeys;
-import static scratch.spring.webapp.controller.Tests.id;
-import static scratch.spring.webapp.controller.Tests.json;
-import static scratch.spring.webapp.controller.Tests.user;
-import static scratch.spring.webapp.data.Users.EMAIL_ONE;
-import static scratch.spring.webapp.data.Users.FIRST_NAME_ONE;
-import static scratch.spring.webapp.data.Users.LAST_NAME_ONE;
-import static scratch.spring.webapp.data.Users.userOne;
-import static scratch.spring.webapp.data.Users.userThree;
-import static scratch.spring.webapp.data.Users.userTwo;
+import static scratch.spring.rest.controller.Tests.assertBadRequest;
+import static scratch.spring.rest.controller.Tests.assertConstraintViolation;
+import static scratch.spring.rest.controller.Tests.assertMissingBody;
+import static scratch.spring.rest.controller.Tests.assertNoFound;
+import static scratch.spring.rest.controller.Tests.assertValidationError;
+import static scratch.spring.rest.controller.Tests.equalTo;
+import static scratch.spring.rest.controller.Tests.hasKeys;
+import static scratch.spring.rest.controller.Tests.id;
+import static scratch.spring.rest.controller.Tests.json;
+import static scratch.spring.rest.controller.Tests.user;
+import static scratch.spring.rest.data.Users.EMAIL_ONE;
+import static scratch.spring.rest.data.Users.FIRST_NAME_ONE;
+import static scratch.spring.rest.data.Users.LAST_NAME_ONE;
+import static scratch.spring.rest.data.Users.userOne;
+import static scratch.spring.rest.data.Users.userThree;
+import static scratch.spring.rest.data.Users.userTwo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)

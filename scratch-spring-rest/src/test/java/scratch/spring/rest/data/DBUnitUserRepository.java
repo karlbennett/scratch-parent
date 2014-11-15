@@ -1,4 +1,4 @@
-package scratch.spring.webapp.data;
+package scratch.spring.rest.data;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -16,16 +16,16 @@ import java.sql.SQLException;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
-import static scratch.spring.webapp.data.DBUnits.ADDRESS;
-import static scratch.spring.webapp.data.DBUnits.ADDRESS_ID;
-import static scratch.spring.webapp.data.DBUnits.ID;
-import static scratch.spring.webapp.data.DBUnits.USER;
-import static scratch.spring.webapp.data.DBUnits.addressTable;
-import static scratch.spring.webapp.data.DBUnits.columnValue;
-import static scratch.spring.webapp.data.DBUnits.mapAddress;
-import static scratch.spring.webapp.data.DBUnits.mapUser;
-import static scratch.spring.webapp.data.DBUnits.userTable;
-import static scratch.spring.webapp.data.DBUnits.wrapCheckedException;
+import static scratch.spring.rest.data.DBUnits.ADDRESS;
+import static scratch.spring.rest.data.DBUnits.ADDRESS_ID;
+import static scratch.spring.rest.data.DBUnits.ID;
+import static scratch.spring.rest.data.DBUnits.USER;
+import static scratch.spring.rest.data.DBUnits.addressTable;
+import static scratch.spring.rest.data.DBUnits.columnValue;
+import static scratch.spring.rest.data.DBUnits.mapAddress;
+import static scratch.spring.rest.data.DBUnits.mapUser;
+import static scratch.spring.rest.data.DBUnits.userTable;
+import static scratch.spring.rest.data.DBUnits.wrapCheckedException;
 
 /**
  * This user repository has been implemented with DBUnit so that an alternate method other than the production code is

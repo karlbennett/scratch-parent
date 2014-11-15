@@ -1,4 +1,4 @@
-package scratch.spring.webapp.controller;
+package scratch.spring.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import scratch.spring.webapp.data.UserRepository;
+import scratch.spring.rest.data.UserRepository;
 import scratch.user.Address;
 import scratch.user.Id;
 import scratch.user.User;

@@ -1,11 +1,11 @@
-package scratch.spring.webapp.data;
+package scratch.spring.rest.data;
 
 import scratch.user.User;
 
-import static scratch.spring.webapp.data.Addresses.address;
-import static scratch.spring.webapp.data.Addresses.addressOne;
-import static scratch.spring.webapp.data.Addresses.addressThree;
-import static scratch.spring.webapp.data.Addresses.addressTwo;
+import static scratch.spring.rest.data.Addresses.address;
+import static scratch.spring.rest.data.Addresses.addressOne;
+import static scratch.spring.rest.data.Addresses.addressThree;
+import static scratch.spring.rest.data.Addresses.addressTwo;
 
 /**
  * Data for user persistence tests.
