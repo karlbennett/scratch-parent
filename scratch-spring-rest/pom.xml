@@ -10,10 +10,6 @@
 
     <name>scratch-spring-rest</name>
 
-    <description>
-        A simple pre-baked Spring Boot webapp to play with.
-    </description>
-
     <artifactId>scratch-spring-rest</artifactId>
 
     <packaging>jar</packaging>
