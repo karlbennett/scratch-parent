@@ -327,7 +327,7 @@ public class RepositoryUsersTest {
     }
 
     @Test
-    public void I_cannot_delete_all_users() throws Exception {
+    public void I_can_delete_all_users() throws Exception {
 
         final User userOne = steps.given_a_user_has_been_persisted(userOne());
         final User userTwo = steps.given_a_user_has_been_persisted(userTwo());
