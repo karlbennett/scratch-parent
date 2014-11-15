@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class ScratchSpringBootApplication {
 
     /**
-     * The standard Spring Boot main method. It is used when the packaged war is executed with {@code java -jar}
+     * The standard Spring Boot main method. It is used when the packaged jar is executed with {@code java -jar}
      */
     public static void main(String[] args) {
 
