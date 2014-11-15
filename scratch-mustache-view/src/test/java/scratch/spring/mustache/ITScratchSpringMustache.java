@@ -18,6 +18,7 @@ import scratch.user.Users;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 import static scratch.spring.mustache.test.UserConstants.containsAll;
 import static scratch.spring.mustache.test.UserConstants.userOne;
@@ -47,6 +48,8 @@ public class ITScratchSpringMustache {
 
     @Before
     public void setUp() {
+
+        reset(users);
 
         baseUrl.setPort(port);
     }
