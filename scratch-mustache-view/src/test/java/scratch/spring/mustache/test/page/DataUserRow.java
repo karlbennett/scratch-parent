@@ -2,17 +2,17 @@ package scratch.spring.mustache.test.page;
 
 import scratch.user.User;
 
-public class UserRow extends AbstractUserRow {
+public class DataUserRow extends EqualityUserRow {
 
     private final String email;
     private final String firstName;
     private final String lastName;
 
-    public UserRow(User user) {
+    public DataUserRow(User user) {
         this(user.getEmail(), user.getFirstName(), user.getLastName());
     }
 
-    public UserRow(String email, String firstName, String lastName) {
+    public DataUserRow(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

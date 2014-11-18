@@ -11,12 +11,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
+import scratch.spring.mustache.test.page.DataUser;
+import scratch.spring.mustache.test.page.DataUserRow;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserPage;
-import scratch.spring.mustache.test.page.UserRow;
+import scratch.user.User;
 import scratch.user.Users;
 
+import java.util.List;
+
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
@@ -57,21 +62,51 @@ public class ITScratchSpringMustache {
     @Test
     public void I_can_view_the_home_page() {
 
-        when(this.users.retrieve()).thenReturn(asList(userOne(), userTwo(), userThree()));
+        when(users.retrieve()).thenReturn(asList(userOne(), userTwo(), userThree()));
 
         homePage.visit();
 
         assertThat("the correct users should be displayed.", homePage.users(),
-                containsAll(asList(new UserRow(userOne()), new UserRow(userTwo()), new UserRow(userThree()))));
+                containsAll(asList(new DataUserRow(userOne()), new DataUserRow(userTwo()),
+                        new DataUserRow(userThree()))));
     }
 
     @Test
     public void I_can_view_a_user() {
 
-        when(this.users.retrieve()).thenReturn(asList(userOne(), userTwo(), userThree()));
+        final User user = userOne();
+
+        when(users.retrieve()).thenReturn(asList(user, userTwo(), userThree()));
+        when(users.retrieve(user.getId())).thenReturn(user);
 
         homePage.visit();
 
-        homePage.users().get(0).clickEmail();
+        homePage.users().get(0).clickView();
+
+        userPage.validate(user.getFirstName(), user.getLastName());
+
+        assertEquals("the correct user page should be displayed.", new DataUser(user), userPage);
+    }
+
+    @Test
+    public void I_can_got_to_a_user_page() {
+
+        final User userOne = userOne();
+        final User userTwo = userTwo();
+        final User userThree = userThree();
+
+        final List<User> users = asList(userOne, userTwo, userThree);
+
+        when(this.users.retrieve()).thenReturn(users);
+        when(this.users.retrieve(userOne.getId())).thenReturn(userOne);
+        when(this.users.retrieve(userTwo.getId())).thenReturn(userTwo);
+        when(this.users.retrieve(userThree.getId())).thenReturn(userThree);
+
+        for (User user : users) {
+
+            userPage.visit(user.getId(), user.getFirstName(), user.getLastName());
+
+            assertEquals("the correct user page should be displayed.", new DataUser(user), userPage);
+        }
     }
 }

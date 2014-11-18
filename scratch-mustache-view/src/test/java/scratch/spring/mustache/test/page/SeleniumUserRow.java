@@ -2,11 +2,16 @@ package scratch.spring.mustache.test.page;
 
 import org.openqa.selenium.WebElement;
 
-public class SeleniumUserRow extends AbstractUserRow {
+public class SeleniumUserRow extends EqualityUserRow {
 
     private final WebElement element;
 
     public SeleniumUserRow(WebElement element) {
+
+        if (null == element) {
+            throw new IllegalArgumentException("A SeleniumUserRow must contain an element.");
+        }
+
         this.element = element;
     }
 
@@ -25,16 +30,15 @@ public class SeleniumUserRow extends AbstractUserRow {
         return findTextByClassName("lastName");
     }
 
-    public void clickEmail() {
-
-        if (null == element) {
-            throw new IllegalStateException("This UserRow does not contain an email element that can be clicked.");
-        }
-
-        element.clear();
+    public void clickView() {
+        findByClassName("view").click();
     }
 
-    private String findTextByClassName(String id) {
-        return Pages.findTextByClassName(element, id);
+    private String findTextByClassName(String className) {
+        return Pages.findTextByClassName(element, className);
+    }
+
+    private WebElement findByClassName(String className) {
+        return Pages.findByClassName(element, className);
     }
 }

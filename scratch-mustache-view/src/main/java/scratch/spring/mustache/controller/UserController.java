@@ -2,6 +2,7 @@ package scratch.spring.mustache.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import scratch.user.Users;
@@ -30,6 +31,17 @@ public class UserController {
             @Override
             public ModelAndView call() throws Exception {
                 return new ModelAndView("classpath:users.mustache", "users", users.retrieve());
+            }
+        };
+    }
+
+    @RequestMapping(value = "/{id}", method = GET, produces = TEXT_HTML_VALUE)
+    public Callable<ModelAndView> user(@PathVariable final Long id) {
+
+        return new Callable<ModelAndView>() {
+            @Override
+            public ModelAndView call() throws Exception {
+                return new ModelAndView("classpath:user.mustache", "user", users.retrieve(id));
             }
         };
     }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User: {{user.firstName}} {{user.lastName}}</title>
+</head>
+<body>
+
+{{#user}}
+    <table id="user">
+        <tr id="email">
+            <td class="name">Email</td>
+            <td class="value">{{email}}</td>
+        </tr>
+        <tr id="firstName">
+            <td class="name">First Name</td>
+            <td class="value">{{firstName}}</td>
+        </tr>
+        <tr id="lastName">
+            <td class="name">Last Name</td>
+            <td class="value">{{lastName}}</td>
+        </tr>
+        <tr id="phoneNumber">
+            <td class="name">Phone Number</td>
+            <td class="value">{{phoneNumber}}</td>
+        </tr>
+    </table>
+    {{#address}}
+        <table id="address">
+            <tr id="number">
+                <td class="name">Number</td>
+                <td class="value">{{number}}</td>
+            </tr>
+            <tr id="street">
+                <td class="name">Street</td>
+                <td class="value">{{street}}</td>
+            </tr>
+            <tr id="suburb">
+                <td class="name">Suburb</td>
+                <td class="value">{{suburb}}</td>
+            </tr>
+            <tr id="city">
+                <td class="name">City</td>
+                <td class="value">{{city}}</td>
+            </tr>
+            <tr id="postcode">
+                <td class="name">Postcode</td>
+                <td class="value">{{postcode}}</td>
+            </tr>
+        </table>
+    {{/address}}
+{{/user}}
+</body>
+</html>

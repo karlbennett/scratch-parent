@@ -2,7 +2,7 @@ package scratch.spring.mustache.test.page;
 
 import org.openqa.selenium.WebElement;
 
-public class AddressElement {
+public class AddressElement extends EqualityAddress {
 
     private final WebElement element;
 
@@ -10,27 +10,36 @@ public class AddressElement {
         this.element = element;
     }
 
+    @Override
     public Integer getNumber() {
-        return Integer.valueOf(findTextById("number"));
+        return Integer.valueOf(findValue("number"));
     }
 
+    @Override
     public String getStreet() {
-        return findTextById("street");
+        return findValue("street");
     }
 
+    @Override
     public String getSuburb() {
-        return findTextById("suburb");
+        return findValue("suburb");
     }
 
+    @Override
     public String getCity() {
-        return findTextById("city");
+        return findValue("city");
     }
 
+    @Override
     public String getPostcode() {
-        return findTextById("postcode");
+        return findValue("postcode");
     }
 
-    private String findTextById(String id) {
-        return Pages.findTextById(element, id);
+    private String findValue(String id) {
+        return Pages.findTextByClassName(findById(id), "value");
+    }
+
+    private WebElement findById(String id) {
+        return Pages.findById(element, id);
     }
 }

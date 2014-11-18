@@ -1,6 +1,6 @@
 package scratch.spring.mustache.test.page;
 
-public abstract class AbstractUserRow {
+public abstract class EqualityUserRow {
 
     public abstract String getEmail();
 
@@ -14,11 +14,11 @@ public abstract class AbstractUserRow {
         if (this == object) {
             return true;
         }
-        if (!(object instanceof AbstractUserRow)) {
+        if (!(object instanceof EqualityUserRow)) {
             return false;
         }
 
-        final AbstractUserRow that = (AbstractUserRow) object;
+        final EqualityUserRow that = (EqualityUserRow) object;
 
         if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) {
             return false;

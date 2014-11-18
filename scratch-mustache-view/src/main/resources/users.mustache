@@ -7,9 +7,12 @@
 <table class="users">
     {{#users}}
         <tr class="user">
-            <td class="email"><a href="users/{{id}}">{{email}}</a></td>
+            <td class="email">{{email}}</td>
             <td class="firstName">{{firstName}}</td>
             <td class="lastName">{{lastName}}</td>
+            <td class="actions">
+                <a class="view" href="users/{{id}}">View</a>/<a class="edit" href="users/edit/{{id}}">Edit</a>
+            </td>
         </tr>
     {{/users}}
 </table>
