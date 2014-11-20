@@ -110,7 +110,8 @@ public class ITScratchSpringMustache {
     @Test
     public void I_can_got_to_a_users_page() {
 
-        Given_some_users_exist();
+        // Given
+        some_users_exist();
 
         for (User user : usersList) {
 
@@ -142,7 +143,8 @@ public class ITScratchSpringMustache {
     @Test
     public void I_can_got_to_a_users_edit_page() {
 
-        Given_some_users_exist();
+        // Given
+        some_users_exist();
 
         for (User user : usersList) {
 
@@ -174,7 +176,7 @@ public class ITScratchSpringMustache {
         assertEquals("the correct user page should be displayed.", new DataUser(userTwo), userViewPage);
     }
 
-    private void Given_some_users_exist() {
+    private void some_users_exist() {
         when(this.users.retrieve(userOne.getId())).thenReturn(userOne);
         when(this.users.retrieve(userTwo.getId())).thenReturn(userTwo);
         when(this.users.retrieve(userThree.getId())).thenReturn(userThree);
