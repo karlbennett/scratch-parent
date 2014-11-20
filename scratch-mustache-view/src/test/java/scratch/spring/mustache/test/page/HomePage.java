@@ -27,13 +27,13 @@ public class HomePage {
         assertEquals("The title of the current page should be correct.", "All Users", driver.getTitle());
     }
 
-    public List<SeleniumUserRow> users() {
+    public List<UserRowElement> users() {
 
-        final List<SeleniumUserRow> users = new ArrayList<>();
+        final List<UserRowElement> users = new ArrayList<>();
 
         for (WebElement element : driver.findElements(By.className("user"))) {
 
-            users.add(new SeleniumUserRow(element));
+            users.add(new UserRowElement(element));
         }
 
         return users;

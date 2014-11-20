@@ -1,35 +1,43 @@
 package scratch.spring.mustache.test.page;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import scratch.user.User;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
-@Component
-public class UserPage extends EqualityUser {
+public abstract class UserPage extends EqualityUser {
 
-    @Autowired
-    private WebDriver driver;
+    private final WebDriver driver;
+    private final BaseUrl baseUrl;
+    private final String path;
+    private final String titlePrefix;
 
-    @Autowired
-    private BaseUrl baseUrl;
-
-    public void visit(Long id, String firstName, String lastName) {
-
-        driver.get(baseUrl + "/view/users/" + id);
-
-        validate(firstName, lastName);
+    protected UserPage(WebDriver driver, BaseUrl baseUrl, String path, String titlePrefix) {
+        this.driver = driver;
+        this.baseUrl = baseUrl;
+        this.path = path;
+        this.titlePrefix = titlePrefix;
     }
 
-    public void validate(String firstName, String lastName) {
+    public void visit(User user) {
 
-        assertThat("The title of the current page should be correct.", driver.getTitle(), startsWith("User"));
-        assertThat("The title should contain the first name.", driver.getTitle(), containsString(firstName));
-        assertThat("The title should contain the last name.", driver.getTitle(), containsString(lastName));
+        driver.get(baseUrl + path + user.getId());
+
+        assertPage(user);
+    }
+
+    public void assertPage(User user) {
+
+        assertPage(new DataUser(user));
+    }
+
+    public void assertPage(EqualityUser user) {
+
+        assertThat("The title of the current page should be correct.", driver.getTitle(), startsWith(titlePrefix));
+        assertThat("The title should contain the first name.", driver.getTitle(), containsString(user.getFirstName()));
+        assertThat("The title should contain the last name.", driver.getTitle(), containsString(user.getLastName()));
     }
 
     @Override
@@ -56,17 +64,5 @@ public class UserPage extends EqualityUser {
         return findValue("phoneNumber");
     }
 
-    @Override
-    public AddressElement getAddress() {
-
-        return new AddressElement(findById("address"));
-    }
-
-    private String findValue(String id) {
-        return Pages.findTextByClassName(findById(id), "value");
-    }
-
-    private WebElement findById(String id) {
-        return Pages.findById(driver, id);
-    }
+    protected abstract String findValue(String id);
 }
