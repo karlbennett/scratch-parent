@@ -11,8 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
-import scratch.spring.mustache.test.page.DataUser;
-import scratch.spring.mustache.test.page.DataUserRow;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserEditPage;
 import scratch.spring.mustache.test.page.UserViewPage;
@@ -21,17 +19,14 @@ import scratch.user.Users;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static scratch.spring.mustache.test.UserConstants.containsAll;
 import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
 import static scratch.spring.mustache.test.UserConstants.users;
+import static scratch.spring.mustache.test.page.PageAsserts.The;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
@@ -87,8 +82,8 @@ public class ITScratchSpringMustache {
         homePage.visit();
 
         // Then
-        assertThat("the correct users should be displayed.", homePage.users(),
-                containsAll(asList(new DataUserRow(userOne), new DataUserRow(userTwo), new DataUserRow(userThree))));
+        The(userViewPage).should_have_a_title_of("All Users");
+        The(homePage).should_contain_rows_for(userOne, userTwo, userThree);
     }
 
     @Test
@@ -103,9 +98,8 @@ public class ITScratchSpringMustache {
         homePage.users().get(0).clickView();
 
         // Then
-        userViewPage.assertPage(userOne);
-
-        assertEquals("the correct user page should be displayed.", new DataUser(userOne), userViewPage);
+        The(userViewPage).should_have_a_title_containing_the_name_of(userOne);
+        The(userViewPage).should_contain_the_data_from(userOne);
     }
 
     @Test
@@ -120,7 +114,8 @@ public class ITScratchSpringMustache {
             userViewPage.visit(user);
 
             // Then
-            assertEquals("the correct user page should be displayed.", new DataUser(user), userViewPage);
+            The(userViewPage).should_have_a_title_containing_the_name_of(user);
+            The(userViewPage).should_contain_the_data_from(user);
         }
     }
 
@@ -136,9 +131,8 @@ public class ITScratchSpringMustache {
         homePage.users().get(0).clickEdit();
 
         // Then
-        userEditPage.assertPage(userOne);
-
-        assertEquals("the correct user page should be displayed.", new DataUser(userOne), userEditPage);
+        The(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        The(userEditPage).should_contain_the_data_from(userOne);
     }
 
     @Test
@@ -152,8 +146,8 @@ public class ITScratchSpringMustache {
         userViewPage.clickEdit();
 
         // Then
-        userEditPage.assertPage(userOne);
-        assertEquals("the correct user page should be displayed.", new DataUser(userOne), userEditPage);
+        The(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        The(userEditPage).should_contain_the_data_from(userOne);
     }
 
     @Test
@@ -168,7 +162,8 @@ public class ITScratchSpringMustache {
             userEditPage.visit(user);
 
             // Then
-            assertEquals("the correct user page should be displayed.", new DataUser(user), userEditPage);
+            The(userEditPage).should_have_a_title_containing_the_name_of(user);
+            The(userEditPage).should_contain_the_data_from(user);
         }
     }
 
@@ -188,8 +183,8 @@ public class ITScratchSpringMustache {
 
         // Then
         verify(users).update(userTwo);
-        userViewPage.assertPage(userTwo);
-        assertEquals("the correct user page should be displayed.", new DataUser(userTwo), userViewPage);
+        The(userViewPage).should_have_a_title_containing_the_name_of(userTwo);
+        The(userViewPage).should_contain_the_data_from(userTwo);
     }
 
     private void some_users_exist() {

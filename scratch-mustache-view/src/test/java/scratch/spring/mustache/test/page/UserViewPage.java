@@ -11,7 +11,7 @@ public class UserViewPage extends UserPage {
 
     @Autowired
     protected UserViewPage(WebDriver driver, BaseUrl baseUrl) {
-        super(driver, baseUrl, "/view/users/", "User: ");
+        super(driver, baseUrl, "/view/users/");
         this.finders = new Finders(driver);
     }
 

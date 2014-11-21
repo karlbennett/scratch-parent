@@ -12,7 +12,7 @@ public class UserEditPage extends UserPage {
 
     @Autowired
     protected UserEditPage(WebDriver driver, BaseUrl baseUrl) {
-        super(driver, baseUrl, "/view/users/edit/", "Edit User: ");
+        super(driver, baseUrl, "/view/users/edit/");
         this.finders = new Finders(driver);
     }
 

@@ -9,22 +9,23 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 @Component
-public class HomePage {
+public class HomePage extends SeleniumPage {
+
+    private final WebDriver driver;
+
+    private final BaseUrl baseUrl;
 
     @Autowired
-    private WebDriver driver;
-
-    @Autowired
-    private BaseUrl baseUrl;
+    public HomePage(WebDriver driver, BaseUrl baseUrl) {
+        super(driver);
+        this.driver = driver;
+        this.baseUrl = baseUrl;
+    }
 
     public void visit() {
 
         driver.get(baseUrl + "/view/users");
-
-        assertEquals("The title of the current page should be correct.", "All Users", driver.getTitle());
     }
 
     public List<UserRowElement> users() {

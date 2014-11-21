@@ -3,41 +3,28 @@ package scratch.spring.mustache.test.page;
 import org.openqa.selenium.WebDriver;
 import scratch.user.User;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.assertThat;
-
-public abstract class UserPage extends EqualityUser {
+public abstract class UserPage extends EqualityUser implements Page {
 
     private final WebDriver driver;
     private final BaseUrl baseUrl;
     private final String path;
-    private final String titlePrefix;
+    private final SeleniumPage page;
 
-    protected UserPage(WebDriver driver, BaseUrl baseUrl, String path, String titlePrefix) {
+    protected UserPage(WebDriver driver, BaseUrl baseUrl, String path) {
         this.driver = driver;
         this.baseUrl = baseUrl;
         this.path = path;
-        this.titlePrefix = titlePrefix;
+        this.page = new SeleniumPage(driver);
     }
 
     public void visit(User user) {
 
         driver.get(baseUrl + path + user.getId());
-
-        assertPage(user);
     }
 
-    public void assertPage(User user) {
-
-        assertPage(new DataUser(user));
-    }
-
-    public void assertPage(EqualityUser user) {
-
-        assertThat("The title of the current page should be correct.", driver.getTitle(), startsWith(titlePrefix));
-        assertThat("The title should contain the first name.", driver.getTitle(), containsString(user.getFirstName()));
-        assertThat("The title should contain the last name.", driver.getTitle(), containsString(user.getLastName()));
+    @Override
+    public String getTitle() {
+        return page.getTitle();
     }
 
     @Override
