@@ -7,6 +7,7 @@ import scratch.user.Address;
 import scratch.user.User;
 
 import java.util.Collection;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -42,7 +43,7 @@ public class UserConstants {
         return user;
     }
 
-    public static Iterable<User> users() {
+    public static List<User> users() {
 
         return asList(userOne(), userTwo(), userThree());
     }

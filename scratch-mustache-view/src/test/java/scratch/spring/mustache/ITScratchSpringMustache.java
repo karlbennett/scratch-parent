@@ -31,6 +31,7 @@ import static scratch.spring.mustache.test.UserConstants.containsAll;
 import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
+import static scratch.spring.mustache.test.UserConstants.users;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
@@ -73,7 +74,7 @@ public class ITScratchSpringMustache {
         userTwo = userTwo();
         userThree = userThree();
 
-        usersList = asList(userOne, userTwo, userThree);
+        usersList = users();
     }
 
     @Test
@@ -137,6 +138,21 @@ public class ITScratchSpringMustache {
         // Then
         userEditPage.assertPage(userOne);
 
+        assertEquals("the correct user page should be displayed.", new DataUser(userOne), userEditPage);
+    }
+
+    @Test
+    public void I_can_got_to_a_users_edit_page_from_their_view_page() {
+
+        // Given
+        when(users.retrieve(userOne.getId())).thenReturn(userOne);
+        userViewPage.visit(userOne);
+
+        // When
+        userViewPage.clickEdit();
+
+        // Then
+        userEditPage.assertPage(userOne);
         assertEquals("the correct user page should be displayed.", new DataUser(userOne), userEditPage);
     }
 
