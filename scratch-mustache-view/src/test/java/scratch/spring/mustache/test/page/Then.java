@@ -1,6 +1,7 @@
 package scratch.spring.mustache.test.page;
 
 import scratch.user.User;
+import scratch.user.Users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,27 +10,48 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static scratch.spring.mustache.test.UserConstants.containsAll;
 
-public class PageAsserts {
+public class Then {
 
-    public static HomePageAssertions The(final HomePage page) {
-        return new HomePageAssertions(page);
+    public static HomePageThens Then_the(HomePage page) {
+        return new HomePageThens(page);
     }
 
-    public static UserViewPageAssertions The(final UserViewPage page) {
-        return new UserViewPageAssertions(page);
+    public static UserViewPageThens Then_the(UserViewPage page) {
+        return new UserViewPageThens(page);
     }
 
-    public static UserEditPageAssertions The(final UserEditPage page) {
-        return new UserEditPageAssertions(page);
+    public static UserEditPageThens Then_the(UserEditPage page) {
+        return new UserEditPageThens(page);
     }
 
-    public static class PageAssertions {
+    public static UsersThens Then_the_mock(Users users) {
+        return new UsersThens(users);
+    }
+
+    public static User copyData(User from, User to) {
+
+        final User copy = new User(to);
+        copy.setEmail(from.getEmail());
+        copy.setFirstName(from.getFirstName());
+        copy.setLastName(from.getLastName());
+        copy.setPhoneNumber(from.getPhoneNumber());
+        copy.getAddress().setNumber(from.getAddress().getNumber());
+        copy.getAddress().setStreet(from.getAddress().getStreet());
+        copy.getAddress().setSuburb(from.getAddress().getSuburb());
+        copy.getAddress().setCity(from.getAddress().getCity());
+        copy.getAddress().setPostcode(from.getAddress().getPostcode());
+
+        return copy;
+    }
+
+    public static class PageThens {
 
         private final Page page;
 
-        private PageAssertions(Page page) {
+        private PageThens(Page page) {
             this.page = page;
         }
 
@@ -38,11 +60,11 @@ public class PageAsserts {
         }
     }
 
-    public static class HomePageAssertions extends PageAssertions {
+    public static class HomePageThens extends PageThens {
 
         private final HomePage page;
 
-        private HomePageAssertions(HomePage page) {
+        private HomePageThens(HomePage page) {
             super(page);
             this.page = page;
         }
@@ -64,12 +86,12 @@ public class PageAsserts {
         }
     }
 
-    public static class UserPageAssertions extends PageAssertions {
+    public static class UserPageThens extends PageThens {
 
         private final UserPage page;
         private final String titlePrefix;
 
-        private UserPageAssertions(UserPage page, String titlePrefix) {
+        private UserPageThens(UserPage page, String titlePrefix) {
             super(page);
             this.page = page;
             this.titlePrefix = titlePrefix;
@@ -89,17 +111,30 @@ public class PageAsserts {
         }
     }
 
-    public static class UserViewPageAssertions extends UserPageAssertions {
+    public static class UserViewPageThens extends UserPageThens {
 
-        private UserViewPageAssertions(UserViewPage page) {
+        private UserViewPageThens(UserViewPage page) {
             super(page, "User");
         }
     }
 
-    public static class UserEditPageAssertions extends UserPageAssertions {
+    public static class UserEditPageThens extends UserPageThens {
 
-        private UserEditPageAssertions(UserEditPage page) {
+        private UserEditPageThens(UserEditPage page) {
             super(page, "Edit User");
+        }
+    }
+
+    public static class UsersThens {
+
+        private final Users users;
+
+        private UsersThens(Users users) {
+            this.users = users;
+        }
+
+        public void should_receive_an_update_with_data_from(User user) {
+            verify(users).update(user);
         }
     }
 }

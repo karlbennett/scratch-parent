@@ -20,13 +20,14 @@ import scratch.user.Users;
 import java.util.List;
 
 import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
 import static scratch.spring.mustache.test.UserConstants.users;
-import static scratch.spring.mustache.test.page.PageAsserts.The;
+import static scratch.spring.mustache.test.page.Given.Given_the_mock;
+import static scratch.spring.mustache.test.page.Then.Then_the;
+import static scratch.spring.mustache.test.page.Then.Then_the_mock;
+import static scratch.spring.mustache.test.page.Then.copyData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
@@ -55,7 +56,7 @@ public class ITScratchSpringMustache {
     private User userOne;
     private User userTwo;
     private User userThree;
-    private List<User> usersList;
+    private List<User> userList;
 
 
     @Before
@@ -69,127 +70,104 @@ public class ITScratchSpringMustache {
         userTwo = userTwo();
         userThree = userThree();
 
-        usersList = users();
+        userList = users();
     }
 
     @Test
     public void I_can_got_to_the_home_page() {
 
-        // Given
-        when(users.retrieve()).thenReturn(usersList);
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
 
         // When
         homePage.visit();
 
-        // Then
-        The(userViewPage).should_have_a_title_of("All Users");
-        The(homePage).should_contain_rows_for(userOne, userTwo, userThree);
+        Then_the(userViewPage).should_have_a_title_of("All Users");
+        Then_the(homePage).should_contain_rows_for(userOne, userTwo, userThree);
     }
 
     @Test
     public void I_can_got_to_a_users_page_from_the_home_page() {
 
-        // Given
-        when(users.retrieve()).thenReturn(usersList);
-        when(users.retrieve(userOne.getId())).thenReturn(userOne);
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
+        Given_the_mock(users).will_return(userOne);
         homePage.visit();
 
         // When
         homePage.users().get(0).clickView();
 
-        // Then
-        The(userViewPage).should_have_a_title_containing_the_name_of(userOne);
-        The(userViewPage).should_contain_the_data_from(userOne);
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userViewPage).should_contain_the_data_from(userOne);
     }
 
     @Test
     public void I_can_got_to_a_users_page() {
 
-        // Given
-        some_users_exist();
+        Given_the_mock(users).will_return_each_of_the_users_in(userList);
 
-        for (User user : usersList) {
+        for (User user : userList) {
 
             // When
             userViewPage.visit(user);
 
-            // Then
-            The(userViewPage).should_have_a_title_containing_the_name_of(user);
-            The(userViewPage).should_contain_the_data_from(user);
+            Then_the(userViewPage).should_have_a_title_containing_the_name_of(user);
+            Then_the(userViewPage).should_contain_the_data_from(user);
         }
     }
 
     @Test
     public void I_can_got_to_a_users_edit_page_from_the_home_page() {
 
-        // Given
-        when(users.retrieve()).thenReturn(usersList);
-        when(users.retrieve(userOne.getId())).thenReturn(userOne);
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
+        Given_the_mock(users).will_return(userOne);
         homePage.visit();
 
         // When
         homePage.users().get(0).clickEdit();
 
-        // Then
-        The(userEditPage).should_have_a_title_containing_the_name_of(userOne);
-        The(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
     }
 
     @Test
     public void I_can_got_to_a_users_edit_page_from_their_view_page() {
 
-        // Given
-        when(users.retrieve(userOne.getId())).thenReturn(userOne);
+        Given_the_mock(users).will_return(userOne);
         userViewPage.visit(userOne);
 
         // When
         userViewPage.clickEdit();
 
-        // Then
-        The(userEditPage).should_have_a_title_containing_the_name_of(userOne);
-        The(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
     }
 
     @Test
     public void I_can_got_to_a_users_edit_page() {
 
-        // Given
-        some_users_exist();
+        Given_the_mock(users).will_return_each_of_the_users_in(userList);
 
-        for (User user : usersList) {
+        for (User user : userList) {
 
             // When
             userEditPage.visit(user);
 
-            // Then
-            The(userEditPage).should_have_a_title_containing_the_name_of(user);
-            The(userEditPage).should_contain_the_data_from(user);
+            Then_the(userEditPage).should_have_a_title_containing_the_name_of(user);
+            Then_the(userEditPage).should_contain_the_data_from(user);
         }
     }
 
     @Test
     public void I_can_save_an_edited_user() {
 
-        // Given
-        userTwo.setId(userOne.getId());
-        userTwo.getAddress().setId(null);
-
-        when(users.retrieve(userOne.getId())).thenReturn(userOne, userTwo);
+        Given_the_mock(users).will_first_return(userOne).and_then(userTwo).for_the_id_from(userOne);
         userEditPage.visit(userOne);
 
         // When
         userEditPage.setValues(userTwo);
         userEditPage.clickSave();
 
-        // Then
-        verify(users).update(userTwo);
-        The(userViewPage).should_have_a_title_containing_the_name_of(userTwo);
-        The(userViewPage).should_contain_the_data_from(userTwo);
-    }
-
-    private void some_users_exist() {
-        when(this.users.retrieve(userOne.getId())).thenReturn(userOne);
-        when(this.users.retrieve(userTwo.getId())).thenReturn(userTwo);
-        when(this.users.retrieve(userThree.getId())).thenReturn(userThree);
+        Then_the_mock(users).should_receive_an_update_with_data_from(copyData(userTwo, userOne));
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(userTwo);
+        Then_the(userViewPage).should_contain_the_data_from(userTwo);
     }
 }

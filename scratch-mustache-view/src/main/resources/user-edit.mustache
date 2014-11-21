@@ -7,6 +7,7 @@
 
 {{#user}}
     <form method="POST">
+        <input type="hidden" name="id" value="{{id}}"/>
         <ul id="user">
             <li>
                 <label class="email-label" for="email">Email</label>
@@ -26,6 +27,7 @@
             </li>
             <li class="address">
                 {{#address}}
+                    <input type="hidden" name="address.id" value="{{id}}"/>
                     <ul id="address">
                         <li>
                             <label class="number-label" for="number">Number</label>
