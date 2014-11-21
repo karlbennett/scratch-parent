@@ -77,7 +77,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_view_the_home_page() {
+    public void I_can_got_to_the_home_page() {
 
         // Given
         when(users.retrieve()).thenReturn(usersList);
@@ -157,7 +157,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_edit_user() {
+    public void I_can_save_an_edited_user() {
 
         // Given
         userTwo.setId(userOne.getId());
