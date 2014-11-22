@@ -1,5 +1,6 @@
 package scratch.spring.mustache.test.page;
 
+import scratch.user.Address;
 import scratch.user.User;
 
 public class DataUser extends EqualityUser {
@@ -8,14 +9,23 @@ public class DataUser extends EqualityUser {
     private final String firstName;
     private final String lastName;
     private final String phoneNumber;
-    private final DataAddress address;
+    private final EqualityAddress address;
 
     public DataUser(User user) {
         this(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
-                new DataAddress(user.getAddress()));
+                setAddress(user.getAddress()));
     }
 
-    public DataUser(String email, String firstName, String lastName, String phoneNumber, DataAddress address) {
+    private static EqualityAddress setAddress(Address address) {
+
+        if (null == address) {
+            return new NullAddress();
+        }
+
+        return new DataAddress(address);
+    }
+
+    public DataUser(String email, String firstName, String lastName, String phoneNumber, EqualityAddress address) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,7 +49,7 @@ public class DataUser extends EqualityUser {
         return phoneNumber;
     }
 
-    public DataAddress getAddress() {
+    public EqualityAddress getAddress() {
         return address;
     }
 }

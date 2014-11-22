@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import scratch.user.User;
 
+import java.util.List;
+
+import static scratch.spring.mustache.test.page.Finders.findTextsByClassName;
+
 @Component
 public class UserEditPage extends UserPage {
 
@@ -29,22 +33,30 @@ public class UserEditPage extends UserPage {
     }
 
     public void setEmail(String email) {
-
         setValue("email", email);
     }
 
-    public void setFirstName(String firstName) {
+    public List<String> getEmailErrorMessages() {
+        return findErrorsById("emailFormErrors");
+    }
 
+    public void setFirstName(String firstName) {
         setValue("firstName", firstName);
     }
 
-    public void setLastName(String lastName) {
+    public List<String> getFirstNameErrorMessages() {
+        return findErrorsById("firstNameFormErrors");
+    }
 
+    public void setLastName(String lastName) {
         setValue("lastName", lastName);
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public List<String> getLastNameErrorMessages() {
+        return findErrorsById("lastNameFormErrors");
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
         setValue("phoneNumber", phoneNumber);
     }
 
@@ -57,6 +69,10 @@ public class UserEditPage extends UserPage {
         getAddress().setValues(address);
     }
 
+    public void clickSave() {
+        finders.findByClassName("save").click();
+    }
+
     @Override
     protected String findValue(String id) {
         return finders.findValue(id);
@@ -66,7 +82,7 @@ public class UserEditPage extends UserPage {
         Finders.setValue(finders.findById(id), value);
     }
 
-    public void clickSave() {
-        finders.findByClassName("save").click();
+    private List<String> findErrorsById(String id) {
+        return findTextsByClassName(finders.findById(id), "form-error");
     }
 }

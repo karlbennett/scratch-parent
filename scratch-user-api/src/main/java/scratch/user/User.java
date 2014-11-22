@@ -21,17 +21,17 @@ import static java.lang.String.format;
 public class User extends Id implements Serializable {
 
     @NotNull(message = "email.null")
-    @Size(min = 1)
+    @Size(message = "email.empty", min = 1)
     @Column(unique = true, nullable = false)
     private String email;
 
     @NotNull(message = "firstName.null")
-    @Size(min = 1)
+    @Size(message = "firstName.empty", min = 1)
     @Column(nullable = false)
     private String firstName;
 
     @NotNull(message = "lastName.null")
-    @Size(min = 1)
+    @Size(message = "lastName.empty", min = 1)
     @Column(nullable = false)
     private String lastName;
 

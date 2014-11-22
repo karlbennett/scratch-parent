@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Finders {
 
     private final SearchContext context;
@@ -44,8 +47,23 @@ public class Finders {
         return findById(context, id).getAttribute("value");
     }
 
-    public static void setValue(WebElement element, String email) {
+    public static void setValue(WebElement element, String value) {
         element.clear();
-        element.sendKeys(email);
+
+        if (null == value) {
+            return;
+        }
+
+        element.sendKeys(value);
+    }
+
+    public static List<String> findTextsByClassName(SearchContext context, String className) {
+        final List<String> texts = new ArrayList<>();
+
+        for (WebElement element : context.findElements(By.className(className))) {
+            texts.add(element.getText());
+        }
+
+        return texts;
     }
 }

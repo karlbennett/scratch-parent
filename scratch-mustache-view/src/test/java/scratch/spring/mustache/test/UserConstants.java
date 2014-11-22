@@ -43,6 +43,11 @@ public class UserConstants {
         return user;
     }
 
+    public static User emptyUser() {
+
+        return new User(null, null, null, null, null);
+    }
+
     public static List<User> users() {
 
         return asList(userOne(), userTwo(), userThree());

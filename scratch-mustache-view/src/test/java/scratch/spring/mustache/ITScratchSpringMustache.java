@@ -20,6 +20,7 @@ import scratch.user.Users;
 import java.util.List;
 
 import static org.mockito.Mockito.reset;
+import static scratch.spring.mustache.test.UserConstants.emptyUser;
 import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
@@ -169,5 +170,78 @@ public class ITScratchSpringMustache {
         Then_the_mock(users).should_receive_an_update_with_data_from(copyData(userTwo, userOne));
         Then_the(userViewPage).should_have_a_title_containing_the_name_of(userTwo);
         Then_the(userViewPage).should_contain_the_data_from(userTwo);
+    }
+
+    @Test
+    public void I_cannot_save_an_edited_user_with_no_data() {
+
+        Given_the_mock(users).will_return(userOne);
+        userEditPage.visit(userOne);
+        final User empty = emptyUser();
+
+        // When
+        userEditPage.setValues(empty);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_not_have_received_an_update();
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_contain_an_email_error_of("A users email cannot be empty.");
+        Then_the(userEditPage).should_contain_a_first_name_error_of("A users first name cannot be empty.");
+        Then_the(userEditPage).should_contain_a_last_name_error_of("A users last name cannot be empty.");
+    }
+
+    @Test
+    public void I_cannot_save_an_edited_user_with_no_email() {
+
+        Given_the_mock(users).will_return(userOne);
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setEmail(null);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_not_have_received_an_update();
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_contain_an_email_error_of("A users email cannot be empty.");
+        Then_the(userEditPage).should_not_contain_a_first_name_error();
+        Then_the(userEditPage).should_not_contain_a_last_name_error();
+    }
+
+    @Test
+    public void I_cannot_save_an_edited_user_with_no_first_name() {
+
+        Given_the_mock(users).will_return(userOne);
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setFirstName(null);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_not_have_received_an_update();
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_not_contain_an_email_error();
+        Then_the(userEditPage).should_contain_a_first_name_error_of("A users first name cannot be empty.");
+        Then_the(userEditPage).should_not_contain_a_last_name_error();
+    }
+
+    @Test
+    public void I_cannot_save_an_edited_user_with_no_last_name() {
+
+        Given_the_mock(users).will_return(userOne);
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setLastName(null);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_not_have_received_an_update();
+        Then_the(userEditPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userEditPage).should_contain_the_data_from(userOne);
+        Then_the(userEditPage).should_not_contain_an_email_error();
+        Then_the(userEditPage).should_not_contain_a_first_name_error();
+        Then_the(userEditPage).should_contain_a_last_name_error_of("A users last name cannot be empty.");
     }
 }

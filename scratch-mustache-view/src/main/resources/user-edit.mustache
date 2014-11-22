@@ -9,19 +9,34 @@
     <form method="POST">
         <ul id="user">
             <li>
+                {{#emailFormErrors}}
+                    <div id="emailFormErrors">
+                        {{>form-error}}
+                    </div>
+                {{/emailFormErrors}}
                 <label class="email-label" for="email">Email</label>
                 <input id="email" name="email" value="{{email}}"/>
             </li>
             <li>
-                <label class="firstName-label" for="firstName">First Name</label>
+                {{#firstNameFormErrors}}
+                    <div id="firstNameFormErrors">
+                        {{>form-error}}
+                    </div>
+                {{/firstNameFormErrors}}
+                <label class="first-name-label" for="firstName">First Name</label>
                 <input id="firstName" name="firstName" value="{{firstName}}"/>
             </li>
             <li>
-                <label class="lastName-label" for="lastName">Last Name</label>
+                {{#lastNameFormErrors}}
+                    <div id="lastNameFormErrors">
+                        {{>form-error}}
+                    </div>
+                {{/lastNameFormErrors}}
+                <label class="last-name-label" for="lastName">Last Name</label>
                 <input id="lastName" name="lastName" value="{{lastName}}"/>
             </li>
             <li>
-                <label class="phoneNumber-label" for="phoneNumber">Phone Number</label>
+                <label class="phone-number-label" for="phoneNumber">Phone Number</label>
                 <input id="phoneNumber" name="phoneNumber" value="{{phoneNumber}}"/>
             </li>
             <li class="address">
