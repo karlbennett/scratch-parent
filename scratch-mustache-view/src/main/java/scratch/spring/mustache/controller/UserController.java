@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import scratch.user.User;
 import scratch.user.Users;
 
+import javax.validation.Valid;
 import java.util.concurrent.Callable;
 
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
@@ -33,7 +34,7 @@ public class UserController {
         return new Callable<ModelAndView>() {
             @Override
             public ModelAndView call() throws Exception {
-                return new ModelAndView("classpath:users.mustache", "users", users.retrieve());
+                return new ModelAndView("users.mustache", "users", users.retrieve());
             }
         };
     }
@@ -44,7 +45,7 @@ public class UserController {
         return new Callable<ModelAndView>() {
             @Override
             public ModelAndView call() throws Exception {
-                return new ModelAndView("classpath:user.mustache", "user", users.retrieve(id));
+                return new ModelAndView("user.mustache", "user", users.retrieve(id));
             }
         };
     }
@@ -55,14 +56,14 @@ public class UserController {
         return new Callable<ModelAndView>() {
             @Override
             public ModelAndView call() throws Exception {
-                return new ModelAndView("classpath:user-edit.mustache", "user", users.retrieve(id));
+                return new ModelAndView("user-edit.mustache", "user", users.retrieve(id));
             }
         };
     }
 
     @RequestMapping(value = "/edit/{id}", method = POST,
             consumes = APPLICATION_FORM_URLENCODED_VALUE, produces = TEXT_HTML_VALUE)
-    public Callable<String> editUser(@PathVariable final Long id, final User user) {
+    public Callable<String> editUser(@PathVariable final Long id, @Valid final User user) {
 
         user.setId(id);
 

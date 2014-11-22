@@ -21,6 +21,7 @@ public class ScratchMustacheConfiguration extends WebMvcConfigurationSupport {
 
         final MustacheJTemplateFactory factory = new MustacheJTemplateFactory();
         factory.setResourceLoader(resourceLoader);
+        factory.setPrefix("classpath:");
 
         final MustacheViewResolver resolver = new MustacheViewResolver();
         resolver.setTemplateFactory(factory);
