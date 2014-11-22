@@ -24,7 +24,7 @@ public class AddressEditElement extends AddressElement {
     }
 
     public void setNumber(Integer number) {
-        setValue("number", number.toString());
+        setValue("number", null == number ? "" : number.toString());
     }
 
     public void setStreet(String street) {

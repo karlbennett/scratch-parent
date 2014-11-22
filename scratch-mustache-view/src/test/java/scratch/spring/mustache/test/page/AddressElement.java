@@ -4,7 +4,13 @@ public abstract class AddressElement extends EqualityAddress {
 
     @Override
     public Integer getNumber() {
-        return Integer.valueOf(findValue("number"));
+        final String number = findValue("number");
+
+        if ("".equals(number)) {
+            return null;
+        }
+
+        return Integer.valueOf(number);
     }
 
     @Override
