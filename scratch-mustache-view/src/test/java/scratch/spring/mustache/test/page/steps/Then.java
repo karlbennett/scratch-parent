@@ -12,19 +12,19 @@ import static org.junit.Assert.fail;
 public class Then {
 
     public static HomePageThens Then_the(HomePage page) {
-        return new HomePageThens(page);
+        return new DefaultHomePageThens(page);
     }
 
     public static UserViewPageThens Then_the(UserViewPage page) {
-        return new UserViewPageThens(page);
+        return new DefaultUserViewPageThens(page);
     }
 
     public static UserEditPageThens Then_the(UserEditPage page) {
-        return new UserEditPageThens(page);
+        return new DefaultUserEditPageThens(page);
     }
 
     public static UsersThens Then_the_mock(Users users) {
-        return new UsersThens(users);
+        return new DefaultUsersThens(users);
     }
 
     public static User copyData(User from, User to) {

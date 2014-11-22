@@ -5,6 +5,6 @@ import scratch.user.Users;
 public class Given {
 
     public static UsersGivens Given_the_mock(Users users) {
-        return new UsersGivens(users);
+        return new DefaultUsersGivens(users);
     }
 }
