@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-public class DefaultUsersGivens implements UsersGivens {
+class DefaultUsersGivens implements UsersGivens {
 
     private final Users users;
 
@@ -27,7 +27,7 @@ public class DefaultUsersGivens implements UsersGivens {
     }
 
     @Override
-    public DefaultAndThen will_first_return(User user) {
+    public AndThen will_first_return(User user) {
         return new DefaultAndThen(user);
     }
 
@@ -39,7 +39,7 @@ public class DefaultUsersGivens implements UsersGivens {
         }
     }
 
-    public class DefaultAndThen implements AndThen {
+    private class DefaultAndThen implements AndThen {
 
         private final User user;
         private final List<User> userList;

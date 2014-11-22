@@ -7,11 +7,11 @@ import scratch.user.User;
 
 import static org.junit.Assert.assertEquals;
 
-public class DefaultUserPageThens implements UserPageThens {
+class DefaultUserPageThens implements UserPageThens {
 
     private final UserPage page;
 
-    public DefaultUserPageThens(UserPage page) {
+    DefaultUserPageThens(UserPage page) {
         this.page = page;
     }
 

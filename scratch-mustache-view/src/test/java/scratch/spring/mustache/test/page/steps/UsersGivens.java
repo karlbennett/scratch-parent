@@ -10,7 +10,7 @@ public interface UsersGivens {
 
     void will_return(User user);
 
-    DefaultUsersGivens.DefaultAndThen will_first_return(User user);
+    AndThen will_first_return(User user);
 
     void will_return_each_of_the_users_in(List<User> userList);
 

@@ -7,7 +7,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-public class DefaultUsersThens implements UsersThens {
+class DefaultUsersThens implements UsersThens {
 
     private final Users users;
 

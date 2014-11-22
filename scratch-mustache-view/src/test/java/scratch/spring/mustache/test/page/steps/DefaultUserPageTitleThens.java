@@ -7,12 +7,12 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
-public class DefaultUserPageTitleThens implements UserPageTitleThens {
+class DefaultUserPageTitleThens implements UserPageTitleThens {
 
     private final UserPage page;
     private final String titlePrefix;
 
-    public DefaultUserPageTitleThens(UserPage page, String titlePrefix) {
+    DefaultUserPageTitleThens(UserPage page, String titlePrefix) {
         this.page = page;
         this.titlePrefix = titlePrefix;
     }

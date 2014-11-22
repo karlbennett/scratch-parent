@@ -6,13 +6,13 @@ import scratch.user.User;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertThat;
 
-public class DefaultUserEditPageThens implements UserEditPageThens {
+class DefaultUserEditPageThens implements UserEditPageThens {
 
     private final UserEditPage page;
     private final UserPageTitleThens userPageTitleThens;
     private final UserPageThens userPageThens;
 
-    public DefaultUserEditPageThens(UserEditPage page) {
+    DefaultUserEditPageThens(UserEditPage page) {
         this.page = page;
         userPageTitleThens = new DefaultUserPageTitleThens(page, "Edit User");
         userPageThens = new DefaultUserPageThens(page);

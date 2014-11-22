@@ -3,12 +3,12 @@ package scratch.spring.mustache.test.page.steps;
 import scratch.spring.mustache.test.page.UserViewPage;
 import scratch.user.User;
 
-public class DefaultUserViewPageThens implements UserViewPageThens {
+class DefaultUserViewPageThens implements UserViewPageThens {
 
     private final UserPageTitleThens userPageTitleThens;
     private final UserPageThens userPageThens;
 
-    public DefaultUserViewPageThens(UserViewPage page) {
+    DefaultUserViewPageThens(UserViewPage page) {
         userPageTitleThens = new DefaultUserPageTitleThens(page, "User");
         userPageThens = new DefaultUserPageThens(page);
     }
