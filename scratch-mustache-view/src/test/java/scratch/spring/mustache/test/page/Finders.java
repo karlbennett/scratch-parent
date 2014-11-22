@@ -15,12 +15,20 @@ public class Finders {
         this.context = context;
     }
 
+    public void clickById(String id) {
+        clickById(context, id);
+    }
+
     public WebElement findById(String id) {
         return findById(context, id);
     }
 
     public String findTextByClassName(String className) {
         return findByClassName(className).getText();
+    }
+
+    public void clickByClassName(String className) {
+        clickByClassName(context, className);
     }
 
     public WebElement findByClassName(String className) {
@@ -31,12 +39,20 @@ public class Finders {
         return findValue(context, id);
     }
 
+    public static void clickById(SearchContext context, String id) {
+        findById(context, id).click();
+    }
+
     public static WebElement findById(SearchContext context, String id) {
         return context.findElement(By.id(id));
     }
 
     public static String findTextByClassName(SearchContext context, String className) {
         return findByClassName(context, className).getText();
+    }
+
+    public static void clickByClassName(SearchContext context, String className) {
+        findByClassName(context, className).click();
     }
 
     public static WebElement findByClassName(SearchContext context, String className) {

@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
 import scratch.spring.mustache.test.page.HomePage;
+import scratch.spring.mustache.test.page.UserCreatePage;
 import scratch.spring.mustache.test.page.UserEditPage;
 import scratch.spring.mustache.test.page.UserViewPage;
 import scratch.user.User;
@@ -26,10 +27,10 @@ import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
 import static scratch.spring.mustache.test.UserConstants.users;
-import static scratch.spring.mustache.test.page.Given.Given_the_mock;
-import static scratch.spring.mustache.test.page.Then.Then_the;
-import static scratch.spring.mustache.test.page.Then.Then_the_mock;
-import static scratch.spring.mustache.test.page.Then.copyData;
+import static scratch.spring.mustache.test.page.steps.Given.Given_the_mock;
+import static scratch.spring.mustache.test.page.steps.Then.Then_the;
+import static scratch.spring.mustache.test.page.steps.Then.Then_the_mock;
+import static scratch.spring.mustache.test.page.steps.Then.copyData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ScratchSpringBootServlet.class)
@@ -53,13 +54,15 @@ public class ITScratchSpringMustache {
     private UserEditPage userEditPage;
 
     @Autowired
+    private UserCreatePage userCreatePage;
+
+    @Autowired
     private BaseUrl baseUrl;
 
     private User userOne;
     private User userTwo;
     private User userThree;
     private List<User> userList;
-
 
     @Before
     public void setUp() {
@@ -83,7 +86,7 @@ public class ITScratchSpringMustache {
         // When
         homePage.visit();
 
-        Then_the(userViewPage).should_have_a_title_of("All Users");
+        Then_the(homePage).should_have_a_title_of("All Users");
         Then_the(homePage).should_contain_rows_for(userOne, userTwo, userThree);
     }
 
@@ -278,5 +281,19 @@ public class ITScratchSpringMustache {
         Then_the(userEditPage).should_not_contain_an_email_error();
         Then_the(userEditPage).should_not_contain_a_first_name_error();
         Then_the(userEditPage).should_contain_a_last_name_error_of("A users last name cannot be empty.");
+    }
+
+    @Test
+    public void I_can_create_a_new_user() {
+
+        // Given
+        homePage.visit();
+
+        // When
+        homePage.clickCreate();
+
+        //Then
+        // Then_the(userCreatePage).should_have_a_title_of("Create Users");
+        // Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
     }
 }

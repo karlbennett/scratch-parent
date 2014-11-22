@@ -31,10 +31,10 @@ public class UserRowElement extends EqualityUserRow {
     }
 
     public void clickView() {
-        finders.findByClassName("view").click();
+        finders.clickByClassName("view");
     }
 
     public void clickEdit() {
-        finders.findByClassName("edit").click();
+        finders.clickByClassName("edit");
     }
 }

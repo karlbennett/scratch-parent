@@ -13,13 +13,14 @@ import java.util.List;
 public class HomePage extends SeleniumPage {
 
     private final WebDriver driver;
-
+    private final Finders finders;
     private final BaseUrl baseUrl;
 
     @Autowired
     public HomePage(WebDriver driver, BaseUrl baseUrl) {
         super(driver);
         this.driver = driver;
+        this.finders = new Finders(driver);
         this.baseUrl = baseUrl;
     }
 
@@ -38,5 +39,9 @@ public class HomePage extends SeleniumPage {
         }
 
         return users;
+    }
+
+    public void clickCreate() {
+        finders.clickById("create");
     }
 }
