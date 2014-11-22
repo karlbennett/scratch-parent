@@ -14,11 +14,11 @@ import static scratch.spring.mustache.test.UserConstants.containsAll;
 class DefaultHomePageThens implements HomePageThens {
 
     private final HomePage page;
-    private final PageThens pageThens;
+    private final PageTitleThens pageTitleThens;
 
     DefaultHomePageThens(HomePage page) {
         this.page = page;
-        pageThens = new DefaultPageThens(page);
+        pageTitleThens = new DefaultPageTitleThens(page);
     }
 
     @Override
@@ -41,6 +41,6 @@ class DefaultHomePageThens implements HomePageThens {
 
     @Override
     public void should_have_a_title_of(String title) {
-        pageThens.should_have_a_title_of(title);
+        pageTitleThens.should_have_a_title_of(title);
     }
 }

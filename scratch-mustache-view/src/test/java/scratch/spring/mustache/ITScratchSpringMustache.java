@@ -293,7 +293,7 @@ public class ITScratchSpringMustache {
         homePage.clickCreate();
 
         //Then
-        // Then_the(userCreatePage).should_have_a_title_of("Create Users");
-        // Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
+        Then_the(userCreatePage).should_have_a_title_of("Create Users");
+        Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
     }
 }

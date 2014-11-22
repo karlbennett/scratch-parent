@@ -2,6 +2,7 @@ package scratch.spring.mustache.test.page.steps;
 
 import org.openqa.selenium.NoSuchElementException;
 import scratch.spring.mustache.test.page.HomePage;
+import scratch.spring.mustache.test.page.UserCreatePage;
 import scratch.spring.mustache.test.page.UserEditPage;
 import scratch.spring.mustache.test.page.UserViewPage;
 import scratch.user.User;
@@ -13,6 +14,10 @@ public class Then {
 
     public static HomePageThens Then_the(HomePage page) {
         return new DefaultHomePageThens(page);
+    }
+
+    public static UserCreatePageThens Then_the(UserCreatePage page) {
+        return new DefaultUserCreatePageThens(page);
     }
 
     public static UserViewPageThens Then_the(UserViewPage page) {

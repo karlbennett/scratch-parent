@@ -4,11 +4,11 @@ import scratch.spring.mustache.test.page.Page;
 
 import static org.junit.Assert.assertEquals;
 
-class DefaultPageThens implements PageThens {
+class DefaultPageTitleThens implements PageTitleThens {
 
     private final Page page;
 
-    DefaultPageThens(Page page) {
+    DefaultPageTitleThens(Page page) {
         this.page = page;
     }
 

@@ -5,7 +5,7 @@ import scratch.user.User;
 
 import java.util.List;
 
-public interface HomePageThens extends PageThens {
+public interface HomePageThens extends PageTitleThens {
 
     void should_contain_rows_for(User... users);
 

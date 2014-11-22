@@ -1,23 +1,23 @@
 package scratch.spring.mustache.test.page.steps;
 
-import scratch.spring.mustache.test.page.UserEditPage;
+import scratch.spring.mustache.test.page.UserCreatePage;
 import scratch.user.User;
 
-class DefaultUserEditPageThens implements UserEditPageThens {
+class DefaultUserCreatePageThens implements UserCreatePageThens {
 
-    private final UserPageTitleThens userPageTitleThens;
+    private final PageTitleThens pageTitleThens;
     private final UserPageThens userPageThens;
     private final DefaultUserMutablePageThens defaultUserMutablePageThens;
 
-    DefaultUserEditPageThens(UserEditPage page) {
-        userPageTitleThens = new DefaultUserPageTitleThens(page, "Edit User");
+    DefaultUserCreatePageThens(UserCreatePage page) {
+        pageTitleThens = new DefaultPageTitleThens(page);
         userPageThens = new DefaultUserPageThens(page);
         defaultUserMutablePageThens = new DefaultUserMutablePageThens(page);
     }
 
     @Override
-    public void should_have_a_title_containing_the_name_of(User user) {
-        userPageTitleThens.should_have_a_title_containing_the_name_of(user);
+    public void should_have_a_title_of(String title) {
+        pageTitleThens.should_have_a_title_of(title);
     }
 
     @Override
