@@ -20,6 +20,7 @@ import scratch.user.Users;
 import java.util.List;
 
 import static org.mockito.Mockito.reset;
+import static scratch.spring.mustache.test.UserConstants.emptyAddress;
 import static scratch.spring.mustache.test.UserConstants.emptyUser;
 import static scratch.spring.mustache.test.UserConstants.userOne;
 import static scratch.spring.mustache.test.UserConstants.userThree;
@@ -170,6 +171,40 @@ public class ITScratchSpringMustache {
         Then_the_mock(users).should_receive_an_update_with_data_from(copyData(userTwo, userOne));
         Then_the(userViewPage).should_have_a_title_containing_the_name_of(userTwo);
         Then_the(userViewPage).should_contain_the_data_from(userTwo);
+    }
+
+    @Test
+    public void I_can_save_an_edited_user_with_no_phone_number() {
+
+        final User noPhoneNumberUser = new User(userOne);
+        noPhoneNumberUser.setPhoneNumber("");
+        Given_the_mock(users).will_first_return(userOne).and_then(noPhoneNumberUser).for_the_id_from(userOne);
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setValues(noPhoneNumberUser);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_receive_an_update_with_data_from(noPhoneNumberUser);
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(noPhoneNumberUser);
+        Then_the(userViewPage).should_contain_the_data_from(noPhoneNumberUser);
+    }
+
+    @Test
+    public void I_can_save_an_edited_user_with_no_address() {
+
+        final User noAddressUser = new User(userOne);
+        noAddressUser.setAddress(emptyAddress(userOne.getAddress().getId()));
+        Given_the_mock(users).will_first_return(userOne).and_then(noAddressUser).for_the_id_from(userOne);
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setValues(noAddressUser);
+        userEditPage.clickSave();
+
+        Then_the_mock(users).should_receive_an_update_with_data_from(noAddressUser);
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(noAddressUser);
+        Then_the(userViewPage).should_contain_the_data_from(noAddressUser);
     }
 
     @Test
