@@ -54,7 +54,7 @@ public class User extends Id implements Serializable {
 
     public User(User user) {
         this(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
-                new Address(user.getAddress()));
+                null == user.getAddress() ? null : new Address(user.getAddress()));
     }
 
     public User(Long id, String email, String firstName, String lastName, String phoneNumber, Address address) {

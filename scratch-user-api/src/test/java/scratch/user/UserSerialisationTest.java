@@ -59,6 +59,32 @@ public class UserSerialisationTest {
     }
 
     @Test
+    public void I_can_serialise_a_user_with_no_address() throws JsonProcessingException {
+
+        final User user = user();
+        user.setId(USER_ID);
+        user.setAddress(null);
+
+        assertEquals("the user should serialise correctly.",
+                format("{" +
+                        /**/"\"id\":%d," +
+                        /**/"\"email\":\"%s\"," +
+                        /**/"\"firstName\":\"%s\"," +
+                        /**/"\"lastName\":\"%s\"," +
+                        /**/"\"phoneNumber\":\"%s\"," +
+                        /**/"\"address\":null" +
+                        "}",
+                        user.getId(),
+                        user.getEmail(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getPhoneNumber()
+                ),
+                MAPPER.writeValueAsString(user)
+        );
+    }
+
+    @Test
     public void I_can_deserialise_a_user() throws IOException {
 
         final User user = user();

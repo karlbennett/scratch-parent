@@ -22,6 +22,15 @@ public class UserTest {
     }
 
     @Test
+    public void I_can_copy_a_user_with_no_address() {
+
+        final User user = user();
+        user.setAddress(null);
+
+        assertEquals("the copied user should be correct.", user, new User(user));
+    }
+
+    @Test
     public void I_can_check_the_equality_of_a_user() {
 
         final Equals<User> eq = new Equals<User>() {
