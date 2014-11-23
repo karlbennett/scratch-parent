@@ -11,8 +11,8 @@ public class UserMutablePage extends UserPage {
 
     private final Finders finders;
 
-    protected UserMutablePage(WebDriver driver, BaseUrl baseUrl, String path) {
-        super(driver, baseUrl, path);
+    protected UserMutablePage(WebDriver driver) {
+        super(driver);
         this.finders = new Finders(driver);
     }
 

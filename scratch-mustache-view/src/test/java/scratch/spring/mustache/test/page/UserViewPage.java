@@ -3,16 +3,24 @@ package scratch.spring.mustache.test.page;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import scratch.user.User;
 
 @Component
-public class UserViewPage extends UserPage {
+public class UserViewPage extends UserPage implements UserVisitPage {
 
     private final Finders finders;
+    private final UserVisitPage userVisitPage;
 
     @Autowired
     protected UserViewPage(WebDriver driver, BaseUrl baseUrl) {
-        super(driver, baseUrl, "/view/users/");
+        super(driver);
         this.finders = new Finders(driver);
+        userVisitPage = new VisitableUserPage(driver, baseUrl, "/view/users/");
+    }
+
+    @Override
+    public void visit(User user) {
+        userVisitPage.visit(user);
     }
 
     @Override

@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class HomePage extends SeleniumPage {
+public class HomePage extends SeleniumPage implements VisitPage {
 
     private final WebDriver driver;
+    private final VisitablePage visitablePage;
     private final Finders finders;
-    private final BaseUrl baseUrl;
 
     @Autowired
     public HomePage(WebDriver driver, BaseUrl baseUrl) {
         super(driver);
         this.driver = driver;
+        this.visitablePage = new VisitablePage(driver, baseUrl, "/view/users");
         this.finders = new Finders(driver);
-        this.baseUrl = baseUrl;
     }
 
+    @Override
     public void visit() {
 
-        driver.get(baseUrl + "/view/users");
+        visitablePage.visit();
     }
 
     public List<UserRowElement> users() {

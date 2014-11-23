@@ -1,25 +1,13 @@
 package scratch.spring.mustache.test.page;
 
 import org.openqa.selenium.WebDriver;
-import scratch.user.User;
 
 public abstract class UserPage extends EqualityUser implements Page {
 
-    private final WebDriver driver;
-    private final BaseUrl baseUrl;
-    private final String path;
     private final SeleniumPage page;
 
-    protected UserPage(WebDriver driver, BaseUrl baseUrl, String path) {
-        this.driver = driver;
-        this.baseUrl = baseUrl;
-        this.path = path;
+    protected UserPage(WebDriver driver) {
         this.page = new SeleniumPage(driver);
-    }
-
-    public void visit(User user) {
-
-        driver.get(baseUrl + path + user.getId());
     }
 
     @Override
