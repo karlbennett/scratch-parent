@@ -38,6 +38,7 @@
     </dependencies>
 
     <modules>
+        <module>scratch-spring-boot-mustache-view</module>
         <module>scratch-spring-boot-rest</module>
     </modules>
 </project>
