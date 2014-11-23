@@ -82,6 +82,13 @@
             <version>5.0.3.Final</version>
         </dependency>
 
+        <!-- MsgPack is used to serialise the form data into a cookie value because it is very compact. -->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.11</version>
+        </dependency>
+
         <!-- Using Spring Boot to simplify the test configuration. -->
         <dependency>
             <groupId>scratch</groupId>

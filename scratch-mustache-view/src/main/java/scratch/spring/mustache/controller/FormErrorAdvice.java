@@ -19,7 +19,7 @@ import static java.util.Collections.singletonMap;
 import static scratch.spring.mustache.controller.ErrorMessages.findErrors;
 
 /**
- * This controller contains the mappings for all the user CRUD pages.
+ * This class contains the mapping methods that handle invalid form validation.
  *
  * @author Karl Bennett
  */

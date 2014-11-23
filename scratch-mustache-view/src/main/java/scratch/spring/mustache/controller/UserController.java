@@ -30,12 +30,12 @@ public class UserController {
     private Users users;
 
     @RequestMapping(value = "/create", method = GET, produces = TEXT_HTML_VALUE)
-    public Callable<ModelAndView> createUser() {
+    public Callable<String> createUser() {
 
-        return new Callable<ModelAndView>() {
+        return new Callable<String>() {
             @Override
-            public ModelAndView call() throws Exception {
-                return new ModelAndView("user-create.mustache", "user", new ClearUser());
+            public String call() throws Exception {
+                return "user-create.mustache";
             }
         };
     }
