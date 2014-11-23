@@ -20,6 +20,6 @@ public interface UsersGivens {
 
         public AndThen and_then(User user);
 
-        public void for_the_id_from(User idUser);
+        public void for_an_id_of(Long id);
     }
 }

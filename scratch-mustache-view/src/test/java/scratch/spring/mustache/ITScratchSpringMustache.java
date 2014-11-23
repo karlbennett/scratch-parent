@@ -120,6 +120,40 @@ public class ITScratchSpringMustache {
     }
 
     @Test
+    public void I_can_create_a_user_with_no_phone_number() {
+
+        final User noPhoneNumberUser = new User(userOne);
+        noPhoneNumberUser.setPhoneNumber("");
+        Given_the_mock(users).will_create(noPhoneNumberUser);
+        Given_the_mock(users).will_return(noPhoneNumberUser);
+        userCreatePage.visit();
+
+        // When
+        userCreatePage.setValues(noPhoneNumberUser);
+        userCreatePage.clickSave();
+
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(noPhoneNumberUser);
+        Then_the(userViewPage).should_contain_the_data_from(noPhoneNumberUser);
+    }
+
+    @Test
+    public void I_can_create_a_user_with_no_address() {
+
+        final User noAddressUser = new User(userOne);
+        noAddressUser.setAddress(emptyAddress(userOne.getAddress().getId()));
+        Given_the_mock(users).will_create(noAddressUser);
+        Given_the_mock(users).will_return(noAddressUser);
+        userCreatePage.visit();
+
+        // When
+        userCreatePage.setValues(noAddressUser);
+        userCreatePage.clickSave();
+
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(noAddressUser);
+        Then_the(userViewPage).should_contain_the_data_from(noAddressUser);
+    }
+
+    @Test
     public void I_can_got_to_a_users_page_from_the_home_page() {
 
         Given_the_mock(users).will_return_the_list_of_users_in(userList);
@@ -191,9 +225,9 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_save_an_edited_user() {
+    public void I_can_edited_a_user() {
 
-        Given_the_mock(users).will_first_return(userOne).and_then(userTwo).for_the_id_from(userOne);
+        Given_the_mock(users).will_first_return(userOne).and_then(userTwo).for_an_id_of(userOne.getId());
         userEditPage.visit(userOne);
 
         // When
@@ -206,11 +240,11 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_save_an_edited_user_with_no_phone_number() {
+    public void I_can_edited_a_user_with_no_phone_number() {
 
         final User noPhoneNumberUser = new User(userOne);
         noPhoneNumberUser.setPhoneNumber("");
-        Given_the_mock(users).will_first_return(userOne).and_then(noPhoneNumberUser).for_the_id_from(userOne);
+        Given_the_mock(users).will_first_return(userOne).and_then(noPhoneNumberUser).for_an_id_of(userOne.getId());
         userEditPage.visit(userOne);
 
         // When
@@ -223,11 +257,11 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_save_an_edited_user_with_no_address() {
+    public void I_can_edited_a_user_with_no_address() {
 
         final User noAddressUser = new User(userOne);
         noAddressUser.setAddress(emptyAddress(userOne.getAddress().getId()));
-        Given_the_mock(users).will_first_return(userOne).and_then(noAddressUser).for_the_id_from(userOne);
+        Given_the_mock(users).will_first_return(userOne).and_then(noAddressUser).for_an_id_of(userOne.getId());
         userEditPage.visit(userOne);
 
         // When
@@ -240,7 +274,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_cannot_save_an_edited_user_with_no_data() {
+    public void I_cannot_edited_a_user_with_no_data() {
 
         Given_the_mock(users).will_return(userOne);
         userEditPage.visit(userOne);
@@ -258,7 +292,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_cannot_save_an_edited_user_with_no_email() {
+    public void I_cannot_edited_a_user_with_no_email() {
 
         Given_the_mock(users).will_return(userOne);
         userEditPage.visit(userOne);
@@ -276,7 +310,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_cannot_save_an_edited_user_with_no_first_name() {
+    public void I_cannot_edited_a_user_with_no_first_name() {
 
         Given_the_mock(users).will_return(userOne);
         userEditPage.visit(userOne);
@@ -294,7 +328,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_cannot_save_an_edited_user_with_no_last_name() {
+    public void I_cannot_edited_a_user_with_no_last_name() {
 
         Given_the_mock(users).will_return(userOne);
         userEditPage.visit(userOne);

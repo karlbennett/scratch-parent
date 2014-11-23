@@ -71,8 +71,8 @@ class DefaultUsersGivens implements UsersGivens {
         }
 
         @Override
-        public void for_the_id_from(User idUser) {
-            when(users.retrieve(idUser.getId())).thenReturn(user, userList.toArray(new User[userList.size()]));
+        public void for_an_id_of(Long id) {
+            when(users.retrieve(id)).thenReturn(user, userList.toArray(new User[userList.size()]));
         }
     }
 }
