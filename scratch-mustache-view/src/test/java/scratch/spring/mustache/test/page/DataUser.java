@@ -19,7 +19,7 @@ public class DataUser extends EqualityUser {
     private static EqualityAddress setAddress(Address address) {
 
         if (null == address) {
-            return new NullAddress();
+            return new NullEqualityAddress();
         }
 
         return new DataAddress(address);

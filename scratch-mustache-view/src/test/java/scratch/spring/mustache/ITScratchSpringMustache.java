@@ -100,7 +100,7 @@ public class ITScratchSpringMustache {
         homePage.clickCreate();
 
         //Then
-        Then_the(userCreatePage).should_have_a_title_of("Create Users");
+        Then_the(userCreatePage).should_have_a_title_of("Create User");
         Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
     }
 
@@ -229,10 +229,9 @@ public class ITScratchSpringMustache {
 
         Given_the_mock(users).will_return(userOne);
         userEditPage.visit(userOne);
-        final User empty = emptyUser();
 
         // When
-        userEditPage.setValues(empty);
+        userEditPage.setValues(emptyUser());
         userEditPage.clickSave();
 
         Then_the_mock(users).should_not_have_received_an_update();

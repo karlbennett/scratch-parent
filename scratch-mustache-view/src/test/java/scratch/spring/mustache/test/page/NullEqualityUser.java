@@ -1,6 +1,6 @@
 package scratch.spring.mustache.test.page;
 
-public class NullUser extends EqualityUser {
+public class NullEqualityUser extends EqualityUser {
 
     public String getEmail() {
         return "";
@@ -18,7 +18,7 @@ public class NullUser extends EqualityUser {
         return "";
     }
 
-    public NullAddress getAddress() {
-        return new NullAddress();
+    public NullEqualityAddress getAddress() {
+        return new NullEqualityAddress();
     }
 }

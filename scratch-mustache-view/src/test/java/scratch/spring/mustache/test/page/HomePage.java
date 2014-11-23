@@ -42,6 +42,6 @@ public class HomePage extends SeleniumPage {
     }
 
     public void clickCreate() {
-        finders.clickById("create");
+        finders.clickByClassName("create");
     }
 }

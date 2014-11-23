@@ -45,15 +45,15 @@ public class UserConstants {
 
     public static User emptyUser() {
 
-        return new User("", "", "", "", emptyAddress());
+        return new User(0L, "", "", "", "", emptyAddress());
     }
 
     public static Address emptyAddress() {
-        return emptyAddress(null);
+        return emptyAddress(0L);
     }
 
     public static Address emptyAddress(Long id) {
-        return new Address(id, null, "", "", "", "");
+        return new Address(id, 0, "", "", "", "");
     }
 
     public static List<User> users() {

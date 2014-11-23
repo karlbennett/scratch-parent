@@ -15,10 +15,6 @@ public class Finders {
         this.context = context;
     }
 
-    public void clickById(String id) {
-        clickById(context, id);
-    }
-
     public WebElement findById(String id) {
         return findById(context, id);
     }
@@ -37,10 +33,6 @@ public class Finders {
 
     public String findValue(String id) {
         return findValue(context, id);
-    }
-
-    public static void clickById(SearchContext context, String id) {
-        findById(context, id).click();
     }
 
     public static WebElement findById(SearchContext context, String id) {

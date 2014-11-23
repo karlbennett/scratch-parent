@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import scratch.user.NullUser;
 import scratch.user.User;
 import scratch.user.Users;
 
@@ -28,13 +29,13 @@ public class UserController {
     @Autowired
     private Users users;
 
-    @RequestMapping(method = GET, produces = TEXT_HTML_VALUE)
-    public Callable<ModelAndView> users() {
+    @RequestMapping(value = "/create", method = GET, produces = TEXT_HTML_VALUE)
+    public Callable<ModelAndView> createUser() {
 
         return new Callable<ModelAndView>() {
             @Override
             public ModelAndView call() throws Exception {
-                return new ModelAndView("users.mustache", "users", users.retrieve());
+                return new ModelAndView("user-create.mustache", "user", new NullUser());
             }
         };
     }
@@ -46,6 +47,17 @@ public class UserController {
             @Override
             public ModelAndView call() throws Exception {
                 return new ModelAndView("user.mustache", "user", users.retrieve(id));
+            }
+        };
+    }
+
+    @RequestMapping(method = GET, produces = TEXT_HTML_VALUE)
+    public Callable<ModelAndView> users() {
+
+        return new Callable<ModelAndView>() {
+            @Override
+            public ModelAndView call() throws Exception {
+                return new ModelAndView("users.mustache", "users", users.retrieve());
             }
         };
     }

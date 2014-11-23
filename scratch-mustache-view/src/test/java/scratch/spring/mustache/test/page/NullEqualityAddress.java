@@ -1,6 +1,6 @@
 package scratch.spring.mustache.test.page;
 
-public class NullAddress extends EqualityAddress {
+public class NullEqualityAddress extends EqualityAddress {
 
     @Override
     public String getCity() {
