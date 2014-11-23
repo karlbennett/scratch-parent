@@ -91,7 +91,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_create_a_new_user() {
+    public void I_can_got_to_the_create_user_page_from_the_home_page() {
 
         // Given
         homePage.visit();
@@ -102,6 +102,21 @@ public class ITScratchSpringMustache {
         //Then
         Then_the(userCreatePage).should_have_a_title_of("Create User");
         Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
+    }
+
+    @Test
+    public void I_can_create_a_user() {
+
+        Given_the_mock(users).will_create(userOne);
+        Given_the_mock(users).will_return(userOne);
+        userCreatePage.visit();
+
+        // When
+        userCreatePage.setValues(userOne);
+        userCreatePage.clickSave();
+
+        Then_the(userViewPage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userViewPage).should_contain_the_data_from(userOne);
     }
 
     @Test

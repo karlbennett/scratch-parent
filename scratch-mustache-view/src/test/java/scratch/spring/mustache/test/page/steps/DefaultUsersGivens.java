@@ -1,5 +1,6 @@
 package scratch.spring.mustache.test.page.steps;
 
+import scratch.user.Id;
 import scratch.user.User;
 import scratch.user.Users;
 
@@ -19,6 +20,20 @@ class DefaultUsersGivens implements UsersGivens {
     @Override
     public void will_return_the_list_of_users_in(List<User> userList) {
         when(users.retrieve()).thenReturn(userList);
+    }
+
+    @Override
+    public void will_create(User user) {
+
+        final User copy = new User(user);
+
+        final Id id = new Id(copy.getId());
+
+        // Have to setup the ID's so that they are the same as wheat will be sent in the create POST request.
+        copy.setId(null);
+        copy.getAddress().setId(0L);
+
+        when(users.create(copy)).thenReturn(id);
     }
 
     @Override

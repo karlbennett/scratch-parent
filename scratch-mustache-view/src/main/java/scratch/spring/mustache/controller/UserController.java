@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import scratch.user.Id;
 import scratch.user.NullUser;
 import scratch.user.User;
 import scratch.user.Users;
@@ -36,6 +37,19 @@ public class UserController {
             @Override
             public ModelAndView call() throws Exception {
                 return new ModelAndView("user-create.mustache", "user", new NullUser());
+            }
+        };
+    }
+
+    @RequestMapping(value = "/create", method = POST, produces = TEXT_HTML_VALUE)
+    public Callable<String> createUser(@Valid final User user) {
+
+        return new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                final Id id = users.create(user);
+
+                return "redirect:/view/users/" + id.getId();
             }
         };
     }
