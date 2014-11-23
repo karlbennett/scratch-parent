@@ -6,6 +6,7 @@ import org.hamcrest.TypeSafeMatcher;
 import scratch.user.Address;
 import scratch.user.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class UserConstants {
 
     public static List<User> users() {
 
-        return asList(userOne(), userTwo(), userThree());
+        return new ArrayList<>(asList(userOne(), userTwo(), userThree()));
     }
 
     public static Matcher<? super Collection> containsAll(final Iterable expected) {

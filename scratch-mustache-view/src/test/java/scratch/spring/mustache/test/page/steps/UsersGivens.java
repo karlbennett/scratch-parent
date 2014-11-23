@@ -12,14 +12,14 @@ public interface UsersGivens {
 
     void will_return(User user);
 
-    AndThen will_first_return(User user);
+    UserAndThen will_first_return(User user);
 
     void will_return_each_of_the_users_in(List<User> userList);
 
-    public interface AndThen {
+    interface UserAndThen {
 
-        public AndThen and_then(User user);
+        UserAndThen and_then(User user);
 
-        public void for_an_id_of(Long id);
+        void for_an_id_of(Long id);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserCreatePage extends UserMutablePage implements VisitPage {
+public class UserCreatePage extends UserEditablePage implements VisitPage {
 
     private final VisitPage visitPage;
 

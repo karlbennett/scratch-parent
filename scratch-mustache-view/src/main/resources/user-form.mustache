@@ -31,30 +31,28 @@
             <label class="phone-number-label" for="phoneNumber">Phone Number</label>
             <input id="phoneNumber" name="phoneNumber" value="{{user.phoneNumber}}"/>
         </li>
-        <li class="address">
-            <input type="hidden" name="address.id" value="{{user.address.id}}"/>
-            <ul id="address">
-                <li>
-                    <label class="number-label" for="number">Number</label>
-                    <input id="number" name="address.number" value="{{user.address.number}}"/>
-                </li>
-                <li>
-                    <label class="street-label" for="street">Street</label>
-                    <input id="street" name="address.street" value="{{user.address.street}}"/>
-                </li>
-                <li>
-                    <label class="suburb-label" for="suburb">Suburb</label>
-                    <input id="suburb" name="address.suburb" value="{{user.address.suburb}}"/>
-                </li>
-                <li>
-                    <label class="city-label" for="city">City</label>
-                    <input id="city" name="address.city" value="{{user.address.city}}"/>
-                </li>
-                <li>
-                    <label class="postcode-label" for="postcode">Postcode</label>
-                    <input id="postcode" name="address.postcode" value="{{user.address.postcode}}"/>
-                </li>
-            </ul>
+    </ul>
+    <input type="hidden" name="address.id" value="{{user.address.id}}"/>
+    <ul id="address">
+        <li>
+            <label class="number-label" for="number">Number</label>
+            <input id="number" name="address.number" value="{{user.address.number}}"/>
+        </li>
+        <li>
+            <label class="street-label" for="street">Street</label>
+            <input id="street" name="address.street" value="{{user.address.street}}"/>
+        </li>
+        <li>
+            <label class="suburb-label" for="suburb">Suburb</label>
+            <input id="suburb" name="address.suburb" value="{{user.address.suburb}}"/>
+        </li>
+        <li>
+            <label class="city-label" for="city">City</label>
+            <input id="city" name="address.city" value="{{user.address.city}}"/>
+        </li>
+        <li>
+            <label class="postcode-label" for="postcode">Postcode</label>
+            <input id="postcode" name="address.postcode" value="{{user.address.postcode}}"/>
         </li>
     </ul>
     <input class="save" type="submit" value="Save"/>

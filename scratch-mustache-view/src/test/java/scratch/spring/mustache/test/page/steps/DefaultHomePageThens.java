@@ -22,19 +22,18 @@ class DefaultHomePageThens implements HomePageThens {
     }
 
     @Override
-    public void should_contain_rows_for(User... users) {
+    public void should_contain_a_row_for_each_user_in(List<User> users) {
 
-        final List<EqualityUserRow> rows = new ArrayList<>(users.length);
+        final List<EqualityUserRow> rows = new ArrayList<>(users.size());
 
         for (User user : users) {
             rows.add(new DataUserRow(user));
         }
 
-        should_contain_a_row_for(rows);
+        should_contain_all(rows);
     }
 
-    @Override
-    public void should_contain_a_row_for(List<EqualityUserRow> rows) {
+    private void should_contain_all(List<EqualityUserRow> rows) {
 
         assertThat("The correct users should be listed.", page.users(), containsAll(rows));
     }

@@ -7,12 +7,12 @@ class DefaultUserCreatePageThens implements UserCreatePageThens {
 
     private final PageTitleThens pageTitleThens;
     private final UserPageThens userPageThens;
-    private final DefaultUserMutablePageThens defaultUserMutablePageThens;
+    private final DefaultUserEditablePageThens defaultUserEditablePageThens;
 
     DefaultUserCreatePageThens(UserCreatePage page) {
         pageTitleThens = new DefaultPageTitleThens(page);
         userPageThens = new DefaultUserPageThens(page);
-        defaultUserMutablePageThens = new DefaultUserMutablePageThens(page);
+        defaultUserEditablePageThens = new DefaultUserEditablePageThens(page);
     }
 
     @Override
@@ -27,31 +27,31 @@ class DefaultUserCreatePageThens implements UserCreatePageThens {
 
     @Override
     public void should_contain_an_email_error_of(String message) {
-        defaultUserMutablePageThens.should_contain_an_email_error_of(message);
+        defaultUserEditablePageThens.should_contain_an_email_error_of(message);
     }
 
     @Override
     public void should_contain_a_first_name_error_of(String message) {
-        defaultUserMutablePageThens.should_contain_a_first_name_error_of(message);
+        defaultUserEditablePageThens.should_contain_a_first_name_error_of(message);
     }
 
     @Override
     public void should_contain_a_last_name_error_of(String message) {
-        defaultUserMutablePageThens.should_contain_a_last_name_error_of(message);
+        defaultUserEditablePageThens.should_contain_a_last_name_error_of(message);
     }
 
     @Override
     public void should_not_contain_an_email_error() {
-        defaultUserMutablePageThens.should_not_contain_an_email_error();
+        defaultUserEditablePageThens.should_not_contain_an_email_error();
     }
 
     @Override
     public void should_not_contain_a_first_name_error() {
-        defaultUserMutablePageThens.should_not_contain_a_first_name_error();
+        defaultUserEditablePageThens.should_not_contain_a_first_name_error();
     }
 
     @Override
     public void should_not_contain_a_last_name_error() {
-        defaultUserMutablePageThens.should_not_contain_a_last_name_error();
+        defaultUserEditablePageThens.should_not_contain_a_last_name_error();
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import scratch.user.User;
 
 @Component
-public class UserEditPage extends UserMutablePage implements UserVisitPage {
+public class UserEditPage extends UserEditablePage implements UserVisitPage {
 
     private final UserVisitPage userVisitPage;
 

@@ -7,11 +7,11 @@ import java.util.List;
 
 import static scratch.spring.mustache.test.page.Finders.findTextsByClassName;
 
-public class UserMutablePage extends UserPage {
+public class UserEditablePage extends UserPage {
 
     private final Finders finders;
 
-    protected UserMutablePage(WebDriver driver) {
+    protected UserEditablePage(WebDriver driver) {
         super(driver);
         this.finders = new Finders(driver);
     }

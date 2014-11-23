@@ -1,15 +1,15 @@
 package scratch.spring.mustache.test.page.steps;
 
 import org.junit.Assert;
-import scratch.spring.mustache.test.page.UserMutablePage;
+import scratch.spring.mustache.test.page.UserEditablePage;
 
 import static org.hamcrest.Matchers.hasItem;
 
-class DefaultUserMutablePageThens implements UserMutablePageThens {
+class DefaultUserEditablePageThens implements UserMutablePageThens {
 
-    private final UserMutablePage page;
+    private final UserEditablePage page;
 
-    DefaultUserMutablePageThens(UserMutablePage page) {
+    DefaultUserEditablePageThens(UserEditablePage page) {
         this.page = page;
     }
 

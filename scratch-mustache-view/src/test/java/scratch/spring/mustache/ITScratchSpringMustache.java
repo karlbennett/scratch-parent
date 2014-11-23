@@ -13,6 +13,7 @@ import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserCreatePage;
+import scratch.spring.mustache.test.page.UserDeletePage;
 import scratch.spring.mustache.test.page.UserEditPage;
 import scratch.spring.mustache.test.page.UserViewPage;
 import scratch.user.User;
@@ -24,7 +25,6 @@ import static org.mockito.Mockito.reset;
 import static scratch.spring.mustache.test.UserConstants.emptyAddress;
 import static scratch.spring.mustache.test.UserConstants.emptyUser;
 import static scratch.spring.mustache.test.UserConstants.userOne;
-import static scratch.spring.mustache.test.UserConstants.userThree;
 import static scratch.spring.mustache.test.UserConstants.userTwo;
 import static scratch.spring.mustache.test.UserConstants.users;
 import static scratch.spring.mustache.test.page.steps.Given.Given_the_mock;
@@ -48,20 +48,22 @@ public class ITScratchSpringMustache {
     private HomePage homePage;
 
     @Autowired
+    private UserCreatePage userCreatePage;
+
+    @Autowired
     private UserViewPage userViewPage;
 
     @Autowired
     private UserEditPage userEditPage;
 
     @Autowired
-    private UserCreatePage userCreatePage;
+    private UserDeletePage userDeletePage;
 
     @Autowired
     private BaseUrl baseUrl;
 
     private User userOne;
     private User userTwo;
-    private User userThree;
     private List<User> userList;
 
     @Before
@@ -73,7 +75,6 @@ public class ITScratchSpringMustache {
 
         userOne = userOne();
         userTwo = userTwo();
-        userThree = userThree();
 
         userList = users();
     }
@@ -87,7 +88,7 @@ public class ITScratchSpringMustache {
         homePage.visit();
 
         Then_the(homePage).should_have_a_title_of("All Users");
-        Then_the(homePage).should_contain_rows_for(userOne, userTwo, userThree);
+        Then_the(homePage).should_contain_a_row_for_each_user_in(userList);
     }
 
     @Test
@@ -415,5 +416,80 @@ public class ITScratchSpringMustache {
         Then_the(userEditPage).should_not_contain_an_email_error();
         Then_the(userEditPage).should_not_contain_a_first_name_error();
         Then_the(userEditPage).should_contain_a_last_name_error_of("A users last name cannot be empty.");
+    }
+
+    @Test
+    public void I_can_got_to_a_users_delete_page_from_the_home_page() {
+
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
+        Given_the_mock(users).will_return(userOne);
+        homePage.visit();
+
+        // When
+        homePage.users().get(0).clickDelete();
+
+        Then_the(userDeletePage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userDeletePage).should_contain_a_warning_for(userOne);
+        Then_the(userDeletePage).should_contain_the_data_from(userOne);
+    }
+
+    @Test
+    public void I_can_got_to_a_users_delete_page_from_their_view_page() {
+
+        Given_the_mock(users).will_return(userOne);
+        userViewPage.visit(userOne);
+
+        // When
+        userViewPage.clickDelete();
+
+        Then_the(userDeletePage).should_have_a_title_containing_the_name_of(userOne);
+        Then_the(userDeletePage).should_contain_a_warning_for(userOne);
+        Then_the(userDeletePage).should_contain_the_data_from(userOne);
+    }
+
+    @Test
+    public void I_can_got_to_a_users_delete_page() {
+
+        Given_the_mock(users).will_return_each_of_the_users_in(userList);
+
+        for (User user : userList) {
+
+            // When
+            userDeletePage.visit(user);
+
+            Then_the(userDeletePage).should_have_a_title_containing_the_name_of(user);
+            Then_the(userDeletePage).should_contain_a_warning_for(user);
+            Then_the(userDeletePage).should_contain_the_data_from(user);
+        }
+    }
+
+    @Test
+    public void I_can_cancel_the_deletion_of_a_user() {
+
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
+        Given_the_mock(users).will_return(userOne);
+        userDeletePage.visit(userOne);
+
+        // When
+        userDeletePage.clickCancel();
+
+        Then_the(homePage).should_have_a_title_of("All Users");
+        Then_the(homePage).should_contain_a_row_for_each_user_in(userList);
+    }
+
+    @Test
+    public void I_can_delete_a_user() {
+
+        userList.remove(userTwo);
+        Given_the_mock(users).will_return_the_list_of_users_in(userList);
+        Given_the_mock(users).will_return(userOne);
+        userDeletePage.visit(userTwo);
+
+        // When
+        userDeletePage.clickDelete();
+
+        Then_the_mock(users).should_receive_a_delete_with_data_from(userTwo);
+        Then_the(homePage).should_have_a_title_of("All Users");
+        Then_the(homePage).should_contain_a_row_for_each_user_in(userList);
     }
 }

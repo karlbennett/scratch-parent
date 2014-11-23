@@ -42,8 +42,8 @@ class DefaultUsersGivens implements UsersGivens {
     }
 
     @Override
-    public AndThen will_first_return(User user) {
-        return new DefaultAndThen(user);
+    public UserAndThen will_first_return(User user) {
+        return new DefaultUserAndThen(user);
     }
 
     @Override
@@ -54,18 +54,18 @@ class DefaultUsersGivens implements UsersGivens {
         }
     }
 
-    private class DefaultAndThen implements AndThen {
+    private class DefaultUserAndThen implements UserAndThen {
 
         private final User user;
         private final List<User> userList;
 
-        private DefaultAndThen(User user) {
+        private DefaultUserAndThen(User user) {
             this.user = user;
             this.userList = new ArrayList<>();
         }
 
         @Override
-        public DefaultAndThen and_then(User user) {
+        public DefaultUserAndThen and_then(User user) {
             userList.add(user);
             return this;
         }

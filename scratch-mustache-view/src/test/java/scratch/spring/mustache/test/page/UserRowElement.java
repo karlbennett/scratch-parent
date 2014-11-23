@@ -37,4 +37,8 @@ public class UserRowElement extends EqualityUserRow {
     public void clickEdit() {
         finders.clickByClassName("edit");
     }
+
+    public void clickDelete() {
+        finders.clickByClassName("delete");
+    }
 }

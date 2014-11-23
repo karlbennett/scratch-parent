@@ -29,4 +29,9 @@ class DefaultUsersThens implements UsersThens {
     public void should_not_have_received_a_create() {
         verify(users, never()).create(any(User.class));
     }
+
+    @Override
+    public void should_receive_a_delete_with_data_from(User user) {
+        verify(users).delete(user.getId());
+    }
 }

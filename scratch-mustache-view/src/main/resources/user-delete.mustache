@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User: {{user.firstName}} {{user.lastName}}</title>
+</head>
+<body>
+
+<p class="warning">Are you sure you wish to delete user: {{user.firstName}} {{user.lastName}}</p>
+
+{{>user-view}}
+
+<form method="POST">
+    <input class="delete" type="submit" value="Delete"/>
+</form>
+<form method="GET" action="/view/users">
+    <input class="cancel" type="submit" value="Cancel"/>
+</form>
+
+</body>
+</html>

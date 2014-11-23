@@ -86,8 +86,7 @@ public class UserController {
         };
     }
 
-    @RequestMapping(value = "/edit/{id}", method = POST,
-            consumes = APPLICATION_FORM_URLENCODED_VALUE, produces = TEXT_HTML_VALUE)
+    @RequestMapping(value = "/edit/{id}", method = POST, consumes = APPLICATION_FORM_URLENCODED_VALUE)
     public Callable<String> editUser(@PathVariable final Long id, @Valid final User user) {
 
         user.setId(id);
@@ -99,6 +98,31 @@ public class UserController {
                 users.update(user);
 
                 return "redirect:/view/users/" + id;
+            }
+        };
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = GET, produces = TEXT_HTML_VALUE)
+    public Callable<ModelAndView> deleteUserPage(@PathVariable final Long id) {
+
+        return new Callable<ModelAndView>() {
+            @Override
+            public ModelAndView call() throws Exception {
+                return new ModelAndView("user-delete.mustache", "user", users.retrieve(id));
+            }
+        };
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = POST)
+    public Callable<String> deleteUser(@PathVariable final Long id) {
+
+        return new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+
+                users.delete(id);
+
+                return "redirect:/view/users";
             }
         };
     }
