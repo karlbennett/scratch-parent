@@ -154,6 +154,54 @@ public class ITScratchSpringMustache {
     }
 
     @Test
+    public void I_cannot_create_a_user_with_no_data() {
+
+        final User emptyUser = emptyUser();
+        userCreatePage.visit();
+
+        // When
+        userCreatePage.setValues(emptyUser);
+        userCreatePage.clickSave();
+
+        Then_the_mock(users).should_not_have_received_a_create();
+        Then_the(userCreatePage).should_have_a_title_of("Create User");
+        Then_the(userCreatePage).should_contain_the_data_from(emptyUser);
+        Then_the(userCreatePage).should_contain_an_email_error_of("A users email cannot be empty.");
+        Then_the(userCreatePage).should_contain_a_first_name_error_of("A users first name cannot be empty.");
+        Then_the(userCreatePage).should_contain_a_last_name_error_of("A users last name cannot be empty.");
+    }
+
+    @Test
+    public void I_cannot_create_a_user_with_no_email() {
+
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    public void I_cannot_create_a_user_with_no_first_name() {
+
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    public void I_cannot_create_a_user_with_no_last_name() {
+
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
     public void I_can_got_to_a_users_page_from_the_home_page() {
 
         Given_the_mock(users).will_return_the_list_of_users_in(userList);

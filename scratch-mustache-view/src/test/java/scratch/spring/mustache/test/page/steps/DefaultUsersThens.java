@@ -24,4 +24,9 @@ class DefaultUsersThens implements UsersThens {
     public void should_not_have_received_an_update() {
         verify(users, never()).update(any(User.class));
     }
+
+    @Override
+    public void should_not_have_received_a_create() {
+        verify(users, never()).create(any(User.class));
+    }
 }

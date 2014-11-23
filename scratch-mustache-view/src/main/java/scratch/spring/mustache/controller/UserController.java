@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import scratch.user.Id;
-import scratch.user.NullUser;
 import scratch.user.User;
 import scratch.user.Users;
 
@@ -36,7 +35,7 @@ public class UserController {
         return new Callable<ModelAndView>() {
             @Override
             public ModelAndView call() throws Exception {
-                return new ModelAndView("user-create.mustache", "user", new NullUser());
+                return new ModelAndView("user-create.mustache", "user", new ClearUser());
             }
         };
     }

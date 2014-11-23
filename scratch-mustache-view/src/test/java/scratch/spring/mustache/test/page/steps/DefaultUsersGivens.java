@@ -31,7 +31,7 @@ class DefaultUsersGivens implements UsersGivens {
 
         // Have to setup the ID's so that they are the same as wheat will be sent in the create POST request.
         copy.setId(null);
-        copy.getAddress().setId(0L);
+        copy.getAddress().setId(null);
 
         when(users.create(copy)).thenReturn(id);
     }

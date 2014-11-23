@@ -9,7 +9,7 @@ public class NullEqualityAddress extends EqualityAddress {
 
     @Override
     public Integer getNumber() {
-        return 0;
+        return null;
     }
 
     @Override
