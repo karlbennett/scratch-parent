@@ -1,5 +1,7 @@
 package scratch.jersey;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import scratch.user.Id;
 import scratch.user.User;
 import scratch.user.Users;
@@ -24,13 +26,19 @@ import static javax.ws.rs.core.Response.Status.OK;
  *
  * @author Karl Bennett
  */
+@Component
 public class JerseyUsers implements Users {
 
     private static final String USERS = "users";
 
-    private final WebTarget target;
+    private WebTarget target;
 
+    @Autowired
     public JerseyUsers(WebTarget target) {
+        this.target = target;
+    }
+
+    void setTarget(WebTarget target) {
         this.target = target;
     }
 

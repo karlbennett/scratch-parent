@@ -65,12 +65,13 @@ public class JerseyUsersIntegrationTest {
     @Autowired
     private MockUsersController controller;
 
-    private Users mockUsers;
+    @Autowired
+    private JerseyUsers users;
 
     @Value("${local.server.port}")
     private int port;
 
-    private Users users;
+    private Users mockUsers;
 
     @Before
     public void setUp() {
@@ -79,7 +80,7 @@ public class JerseyUsersIntegrationTest {
 
         controller.setUsers(mockUsers);
 
-        users = new JerseyUsers(ClientBuilder.newClient().target(format("http://localhost:%d/", port)));
+        users.setTarget(ClientBuilder.newClient().target(format("http://localhost:%d/", port)));
     }
 
     @Test

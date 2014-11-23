@@ -44,6 +44,13 @@
             <version>${jersey.version}</version>
         </dependency>
 
+        <!-- Spring Context is used for dependency injection. -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+
         <!-- Using Spring Boot to simplify the setup of the persistence tests. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
