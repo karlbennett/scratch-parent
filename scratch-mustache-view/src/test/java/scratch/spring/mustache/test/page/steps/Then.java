@@ -1,6 +1,7 @@
 package scratch.spring.mustache.test.page.steps;
 
 import org.openqa.selenium.NoSuchElementException;
+import scratch.spring.mustache.test.page.ErrorPage;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserCreatePage;
 import scratch.spring.mustache.test.page.UserDeletePage;
@@ -31,6 +32,10 @@ public class Then {
 
     public static UserDeletePageThens Then_the(UserDeletePage page) {
         return new DefaultUserDeletePageThens(page);
+    }
+
+    public static ErrorPageThens Then_the(ErrorPage page) {
+        return new DefaultErrorPageThens(page);
     }
 
     public static UsersThens Then_the_mock(Users users) {

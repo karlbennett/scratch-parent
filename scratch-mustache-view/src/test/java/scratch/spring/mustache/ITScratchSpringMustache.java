@@ -3,6 +3,7 @@ package scratch.spring.mustache;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import scratch.ScratchSpringBootServlet;
 import scratch.spring.mustache.test.page.BaseUrl;
+import scratch.spring.mustache.test.page.ErrorPage;
 import scratch.spring.mustache.test.page.HomePage;
 import scratch.spring.mustache.test.page.UserCreatePage;
 import scratch.spring.mustache.test.page.UserDeletePage;
@@ -42,6 +44,9 @@ public class ITScratchSpringMustache {
     private int port;
 
     @Autowired
+    private WebDriver driver;
+
+    @Autowired
     private Users users;
 
     @Autowired
@@ -60,6 +65,9 @@ public class ITScratchSpringMustache {
     private UserDeletePage userDeletePage;
 
     @Autowired
+    private ErrorPage errorPage;
+
+    @Autowired
     private BaseUrl baseUrl;
 
     private User userOne;
@@ -68,6 +76,8 @@ public class ITScratchSpringMustache {
 
     @Before
     public void setUp() {
+
+        driver.manage().deleteAllCookies();
 
         reset(users);
 
@@ -92,7 +102,7 @@ public class ITScratchSpringMustache {
     }
 
     @Test
-    public void I_can_got_to_the_create_user_page_from_the_home_page() {
+    public void I_can_go_to_the_create_user_page_from_the_home_page() {
 
         // Given
         homePage.visit();
@@ -227,6 +237,20 @@ public class ITScratchSpringMustache {
     }
 
     @Test
+    public void I_see_an_error_page_when_the_user_cannot_be_created() {
+
+        Given_the_mock(users).will_not_create(userOne).because_the_operation_failed();
+        userCreatePage.visit();
+
+        // When
+        userCreatePage.setValues(userOne);
+        userCreatePage.clickSave();
+
+        Then_the(errorPage).should_have_a_title_of("Error");
+        Then_the(errorPage).should_contain_the_message("Unfortunately the operation you attempted has failed.");
+    }
+
+    @Test
     public void I_can_got_to_a_users_page_from_the_home_page() {
 
         Given_the_mock(users).will_return_the_list_of_users_in(userList);
@@ -253,6 +277,30 @@ public class ITScratchSpringMustache {
             Then_the(userViewPage).should_have_a_title_containing_the_name_of(user);
             Then_the(userViewPage).should_contain_the_data_from(user);
         }
+    }
+
+    @Test
+    public void I_see_an_error_page_when_I_cannot_go_to_a_users_page() {
+
+        Given_the_mock(users).will_not_return(userOne).because_the_operation_failed();
+
+        // When
+        userViewPage.visit(userOne);
+
+        Then_the(errorPage).should_have_a_title_of("Error");
+        Then_the(errorPage).should_contain_the_message("Unfortunately the operation you attempted has failed.");
+    }
+
+    @Test
+    public void I_cannot_got_to_a_users_page_that_does_not_exist() {
+
+        Given_the_mock(users).will_not_return(userOne).because_it_does_not_exist();
+
+        // When
+        userViewPage.visit(userOne);
+
+        Then_the(errorPage).should_have_a_title_of("Not Found");
+        Then_the(errorPage).should_contain_the_message("The page you have requested cannot be found.");
     }
 
     @Test
@@ -419,6 +467,33 @@ public class ITScratchSpringMustache {
     }
 
     @Test
+    public void I_see_an_error_page_when_the_user_cannot_be_edited() {
+
+        Given_the_mock(users).will_return(userOne);
+        Given_the_mock(users).will_not_update(userOne).because_the_operation_failed();
+        userEditPage.visit(userOne);
+
+        // When
+        userEditPage.setValues(userOne);
+        userEditPage.clickSave();
+
+        Then_the(errorPage).should_have_a_title_of("Error");
+        Then_the(errorPage).should_contain_the_message("Unfortunately the operation you attempted has failed.");
+    }
+
+    @Test
+    public void I_see_an_error_page_when_editing_a_user_that_does_not_exist() {
+
+        Given_the_mock(users).will_not_return(userOne).because_it_does_not_exist();
+
+        // When
+        userEditPage.visit(userOne);
+
+        Then_the(errorPage).should_have_a_title_of("Not Found");
+        Then_the(errorPage).should_contain_the_message("The page you have requested cannot be found.");
+    }
+
+    @Test
     public void I_can_got_to_a_users_delete_page_from_the_home_page() {
 
         Given_the_mock(users).will_return_the_list_of_users_in(userList);
@@ -491,5 +566,31 @@ public class ITScratchSpringMustache {
         Then_the_mock(users).should_receive_a_delete_with_data_from(userTwo);
         Then_the(homePage).should_have_a_title_of("All Users");
         Then_the(homePage).should_contain_a_row_for_each_user_in(userList);
+    }
+
+    @Test
+    public void I_see_an_error_page_when_the_user_cannot_be_deleted() {
+
+        Given_the_mock(users).will_return(userOne);
+        Given_the_mock(users).will_not_delete(userOne).because_the_operation_failed();
+        userDeletePage.visit(userOne);
+
+        // When
+        userDeletePage.clickDelete();
+
+        Then_the(errorPage).should_have_a_title_of("Error");
+        Then_the(errorPage).should_contain_the_message("Unfortunately the operation you attempted has failed.");
+    }
+
+    @Test
+    public void I_see_an_error_page_when_deleting_a_user_that_does_not_exist() {
+
+        Given_the_mock(users).will_not_return(userOne).because_it_does_not_exist();
+
+        // When
+        userDeletePage.visit(userOne);
+
+        Then_the(errorPage).should_have_a_title_of("Not Found");
+        Then_the(errorPage).should_contain_the_message("The page you have requested cannot be found.");
     }
 }

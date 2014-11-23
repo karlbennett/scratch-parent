@@ -13,12 +13,17 @@ import static scratch.spring.mustache.test.UserConstants.containsAll;
 
 class DefaultHomePageThens implements HomePageThens {
 
-    private final HomePage page;
     private final PageTitleThens pageTitleThens;
+    private final HomePage page;
 
     DefaultHomePageThens(HomePage page) {
-        this.page = page;
         pageTitleThens = new DefaultPageTitleThens(page);
+        this.page = page;
+    }
+
+    @Override
+    public void should_have_a_title_of(String title) {
+        pageTitleThens.should_have_a_title_of(title);
     }
 
     @Override
@@ -36,10 +41,5 @@ class DefaultHomePageThens implements HomePageThens {
     private void should_contain_all(List<EqualityUserRow> rows) {
 
         assertThat("The correct users should be listed.", page.users(), containsAll(rows));
-    }
-
-    @Override
-    public void should_have_a_title_of(String title) {
-        pageTitleThens.should_have_a_title_of(title);
     }
 }
