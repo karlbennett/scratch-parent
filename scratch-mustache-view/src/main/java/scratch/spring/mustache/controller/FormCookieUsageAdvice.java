@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 
-@ControllerAdvice
-public class FormCookieAdvice {
+@ControllerAdvice(assignableTypes = CreateUserController.class)
+public class FormCookieUsageAdvice {
 
     @Autowired
     private MessagePack messagePack;
 
     @ModelAttribute
-    public void user(@RequestBody(required = false) MultiValueMap<String, Object> form, HttpServletResponse response)
+    public void createCookie(@RequestBody(required = false) MultiValueMap<String, Object> form, HttpServletResponse response)
             throws IOException {
 
         if (null == form) {
@@ -35,7 +35,7 @@ public class FormCookieAdvice {
     }
 
     @ModelAttribute
-    public void user(@CookieValue(value = "form", required = false) String userBase64Msg, Model model)
+    public void readCookie(@CookieValue(value = "form", required = false) String userBase64Msg, Model model)
             throws IOException {
 
         if (null == userBase64Msg) {

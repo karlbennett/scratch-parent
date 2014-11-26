@@ -251,6 +251,22 @@ public class ITScratchSpringMustache {
     }
 
     @Test
+    public void The_create_page_is_cleared_after_a_successful_user_creation() {
+
+        Given_the_mock(users).will_create(userOne);
+        Given_the_mock(users).will_return(userOne);
+        userCreatePage.visit();
+        userCreatePage.setValues(userOne);
+        userCreatePage.clickSave();
+
+        // When
+        userCreatePage.visit();
+
+        Then_the(userCreatePage).should_have_a_title_of("Create User");
+        Then_the(userCreatePage).should_contain_the_data_from(emptyUser());
+    }
+
+    @Test
     public void I_can_got_to_a_users_page_from_the_home_page() {
 
         Given_the_mock(users).will_return_the_list_of_users_in(userList);
