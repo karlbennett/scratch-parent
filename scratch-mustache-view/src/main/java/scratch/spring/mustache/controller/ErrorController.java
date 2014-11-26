@@ -10,11 +10,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-/**
- * This controller contains the mappings for all the view error pages..
- *
- * @author Karl Bennett
- */
 @Controller
 @RequestMapping("/view")
 public class ErrorController {

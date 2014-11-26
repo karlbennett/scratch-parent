@@ -11,12 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * This class is used to map the simple {@link scratch.user.User} validation error messages into more human readable
- * sentences.
- *
- * @author Karl Bennett
- */
 @Component
 public class ErrorMessages {
 

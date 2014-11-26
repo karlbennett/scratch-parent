@@ -11,11 +11,6 @@ import org.springframework.web.servlet.view.mustache.java.MustacheJTemplateFacto
 import scratch.user.Address;
 import scratch.user.User;
 
-/**
- * This class configures the Mustache view.
- *
- * @author Karl Bennett
- */
 @Configuration
 public class ScratchMustacheConfiguration extends WebMvcConfigurationSupport {
 

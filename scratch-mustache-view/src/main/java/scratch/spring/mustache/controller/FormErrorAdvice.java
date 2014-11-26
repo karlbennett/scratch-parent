@@ -18,12 +18,7 @@ import java.util.List;
 import static java.util.Collections.singletonMap;
 import static scratch.spring.mustache.controller.ErrorMessages.findErrors;
 
-/**
- * This class contains the mapping methods that handle invalid form validation.
- *
- * @author Karl Bennett
- */
-@ControllerAdvice(assignableTypes = UserController.class)
+@ControllerAdvice
 public class FormErrorAdvice {
 
     @Autowired

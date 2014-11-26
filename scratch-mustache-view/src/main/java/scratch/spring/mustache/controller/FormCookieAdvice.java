@@ -15,13 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 
-/**
- * This class contains mapping for creating a "form" cookie that stores the state of a pages form across different
- * requests.
- *
- * @author Karl Bennett
- */
-@ControllerAdvice(assignableTypes = UserController.class)
+@ControllerAdvice
 public class FormCookieAdvice {
 
     @Autowired
