@@ -108,5 +108,6 @@
         <module>scratch-jersey-client</module>
         <module>scratch-mustache-view</module>
         <module>scratch-cucumber-rest</module>
+        <module>scratch-spring-scheduling</module>
     </modules>
 </project>
